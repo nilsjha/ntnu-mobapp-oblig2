@@ -8,6 +8,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public interface FantService {
-    @GET("/marketplace/list?list-all={all}")
-    Call<List<Item>> getItems(@Path("all") Boolean includeAll);
+    @GET("/marketplace/list?list-all=true")
+    Call<List<Item>> getItems();
 }

@@ -55,12 +55,12 @@ public class MainActivity extends AppCompatActivity {
 
 
         FantService fantService = FantAPI.getClient().create(FantService.class);
-        Call<List<Item>> call = fantService.getItems(true);
+        Call<List<Item>> call = fantService.getItems();
 
         call.enqueue(new Callback<List<Item>>() {
             @Override
             public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
-                
+
             }
 
             @Override
