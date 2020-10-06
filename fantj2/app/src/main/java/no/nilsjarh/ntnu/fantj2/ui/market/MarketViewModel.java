@@ -22,7 +22,7 @@ public class MarketViewModel extends AndroidViewModel {
     public MarketViewModel(@NonNull Application app) {
         super(app);
         text = new MutableLiveData<String>();
-        text.setValue("This is the market segment ");
+        text.setValue("This app got parallax effects!");
 
         if(itemListLiveData == null) {
             itemRepo = ItemRepository.getInstance();
