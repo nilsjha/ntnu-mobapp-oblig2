@@ -30,7 +30,7 @@ public class MarketViewAdapter extends RecyclerView.Adapter<MarketViewAdapter.Vi
     public void onBindViewHolder(@NonNull MarketViewAdapter.ViewHolder holder, int position) {
         Item i = itemList.get(position);
         holder.title.setText(i.getTitle());
-        holder.price.setText(i.getPrice().toString());
+        holder.price.setText(i.getPrice().toString() + " kr");
     }
     public void setItems(List<Item> itemList) {
         this.itemList = itemList;
