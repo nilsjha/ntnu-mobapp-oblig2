@@ -8,6 +8,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -16,12 +17,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import java.util.List;
-
-import no.nilsjarh.ntnu.fantj2.model.Item;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import no.nilsjarh.ntnu.fantj2.ui.item.ItemViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_home, R.id.nav_market, R.id.nav_item)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -54,20 +50,14 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
 
-        FantService fantService = FantAPI.getClient().create(FantService.class);
-        Call<List<Item>> call = fantService.getItems();
+        // Create a ViewModel the first time the system calls an activity's onCreate() method.
+        // Re-created activities receive the same MyViewModel instance created by the first activity.
+        ItemViewModel model = new ViewModelProvider(this).get(ItemViewModel.class);
+        model.getText().observe(this, items -> {
+            // Update UI
 
-        call.enqueue(new Callback<List<Item>>() {
-            @Override
-            public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
-
-            }
-
-            @Override
-            public void onFailure(Call<List<Item>> call, Throwable t) {
-
-            }
         });
+
 
     }
 
