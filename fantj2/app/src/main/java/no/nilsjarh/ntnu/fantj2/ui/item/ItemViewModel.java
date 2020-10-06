@@ -14,7 +14,7 @@ public class ItemViewModel extends ViewModel {
 
     public ItemViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is where the itemlist will be implemented");
+        mText.setValue("This is where the item details will be displayed");
     }
 
 

@@ -1,5 +1,6 @@
 package no.nilsjarh.ntnu.fantj2.model;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.math.BigDecimal;
@@ -7,18 +8,23 @@ import java.util.List;
 
 public class Item {
 
+    @Expose
     @SerializedName("id")
     private int id;
 
+    @Expose
     @SerializedName("title")
     private String title;
 
+    @Expose
     @SerializedName("description")
     private String description;
 
+    @Expose
     @SerializedName("priceNok")
     private BigDecimal price;
 
+    @Expose
     @SerializedName("attachments")
     private List<Attachment> attachmentList;
 
