@@ -27,9 +27,10 @@
         android:label="Items"
         tools:layout="@layout/fragment_item" />
 
-    <activity
+    <fragment
         android:id="@+id/nav_login"
-        android:name="no.nilsjarh.ntnu.fantj2.ui.login.LoginActivity"
-        android:label="Login"
-        tools:layout="@layout/activity_login" />
+        android:name="no.nilsjarh.ntnu.fantj2.ui.login.LoginFragment"
+        android:label="Items"
+        tools:layout="@layout/fragment_item" />
+
 </navigation>
