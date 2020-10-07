@@ -6,18 +6,17 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import java.util.List;
 
-import no.nilsjarh.ntnu.fantj2.ItemRepository;
+import no.nilsjarh.ntnu.fantj2.centralRepository;
 import no.nilsjarh.ntnu.fantj2.model.Item;
 
 public class MarketViewModel extends AndroidViewModel {
 
     private MutableLiveData<String> text;
     private LiveData<List<Item>> itemListLiveData;
-    private ItemRepository itemRepo;
+    private centralRepository itemRepo;
 
     public MarketViewModel(@NonNull Application app) {
         super(app);
@@ -25,7 +24,7 @@ public class MarketViewModel extends AndroidViewModel {
         text.setValue("This app got parallax effects!");
 
         if(itemListLiveData == null) {
-            itemRepo = ItemRepository.getInstance();
+            itemRepo = centralRepository.getInstance();
             itemListLiveData = itemRepo.getItemsLiveData();
         }
     }
