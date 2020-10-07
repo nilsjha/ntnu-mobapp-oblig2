@@ -1,7 +1,5 @@
 package no.nilsjarh.ntnu.fantj2.model;
 
-import android.util.Log;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -16,16 +14,17 @@ public class LoggedInUser {
 
     @Expose
     @SerializedName("email")
-    private String email;
+    private String userName;
+
     private String userToken;
 
     public LoggedInUser() {
 
     }
 
-    public LoggedInUser(String userId, String email) {
+    public LoggedInUser(String userId, String userName) {
         this.userId = userId;
-        this.email = email;
+        this.userName = userName;
     }
     public void setUserToken(String token) { this.userToken = token;}
 
@@ -33,16 +32,16 @@ public class LoggedInUser {
         this.userId = userId;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUserName(String email) {
+        this.userName = email;
     }
 
     public String getUserId() {
         return userId;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUserName() {
+        return userName;
     }
 
     public String getUserToken() {

@@ -37,7 +37,7 @@
     <fragment
         android:id="@+id/nav_login"
         android:name="no.nilsjarh.ntnu.fantj2.ui.login.LoginFragment"
-        android:label="Logon"
+        android:label="Login"
         tools:layout="@layout/fragment_item" />
 
 </navigation>

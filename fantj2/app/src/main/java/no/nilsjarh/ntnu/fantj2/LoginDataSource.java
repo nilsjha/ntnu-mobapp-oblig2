@@ -8,7 +8,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-import java.io.IOException;
 import java.util.function.Consumer;
 
 /**
@@ -18,7 +17,7 @@ public class LoginDataSource {
 
     public void login(String username, String password, Consumer<Result<LoggedInUser>> resultCallback) {
 
-        Retrofit rest = RestService.getRetrofitClient(true);
+        Retrofit rest = RestService.getRetrofitClient(false);
 
         try {
             // TODO: handle loggedInUser authentication
@@ -32,10 +31,11 @@ public class LoginDataSource {
                         Log.d("AUTH", "GOT USER DATA");
 
                         if (tokenResponse.isSuccessful()) {
-
                             String token = tokenResponse.headers().get("Authorization");
                             System.err.println("OK LOGIN AUTH" + token);
                             Call<LoggedInUser> userCall = authService.getCurrentUser(token);
+                            user.setUserToken(token);
+                            user.setUserName(username);
 
                             resultCallback.accept(new Result.Success<>(user));
                         }
