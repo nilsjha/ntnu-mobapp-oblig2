@@ -18,7 +18,7 @@ public interface AuthApi {
 
     @FormUrlEncoded
     @POST(PREFIX + "login")
-    public Call<String> doLogin(
+    public Call<Void> doLogin(
             @Field("email") String email,
             @Field("pwd") String password);
 }

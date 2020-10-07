@@ -1,54 +1,57 @@
 package no.nilsjarh.ntnu.fantj2;
 
+import android.util.Log;
+
 import no.nilsjarh.ntnu.fantj2.model.LoggedInUser;
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
 import java.io.IOException;
+import java.util.function.Consumer;
 
 /**
  * Class that handles authentication w/ login credentials and retrieves user information.
  */
 public class LoginDataSource {
 
-    public Result<LoggedInUser> login(String username, String password) {
+    public void login(String username, String password, Consumer<Result<LoggedInUser>> resultCallback) {
 
         Retrofit rest = RestService.getRetrofitClient(true);
 
         try {
             // TODO: handle loggedInUser authentication
-
             AuthApi authService = rest.create(AuthApi.class);
-            LoggedInUser user = new LoggedInUser();
+            Call<Void> authCall = authService.doLogin(username, password);
+            Log.d("AUTH", "DATASOURCE BEFORE EBNQ");
+                authCall.enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> tokenResponse) {
+                        LoggedInUser user = new LoggedInUser();
+                        Log.d("AUTH", "GOT USER DATA");
 
-            Call<String> authCall = authService.doLogin(username, password);
-            Call<LoggedInUser> userCall = null;
-            boolean tokenOk = false;
+                        if (tokenResponse.isSuccessful()) {
 
+                            String token = tokenResponse.headers().get("Authorization");
+                            System.err.println("OK LOGIN AUTH" + token);
+                            Call<LoggedInUser> userCall = authService.getCurrentUser(token);
 
-                Response<String> tokenResponse = authCall.execute();
-
-                if (tokenResponse.isSuccessful()) {
-                    tokenOk = true;
-                    String token = tokenResponse.body();
-                    userCall = authService.getCurrentUser("Bearer " + token);
-
-                    Response<LoggedInUser> userResponse = userCall.execute();
-
-                    if (userResponse.isSuccessful()) {
-                        user = userResponse.body();
-                        user.setUserToken(token);
-                        return new Result.Success<>(user);
-                    } else {
-                        return new Result.Error(new IOException("Error getting user data " + userResponse.code()));
+                            resultCallback.accept(new Result.Success<>(user));
+                        }
                     }
-                } else {
-                    return new Result.Error(new IOException("Error authenticating " + tokenResponse.code()));
-                }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        Log.d("AUTH", call.toString());
+                        Log.d("AUTH", t.getMessage());
+                        Log.d("AUTH", "FAILED HARD");
+                    }
+                });
 
         } catch (Exception e) {
-            return new Result.Error(new IOException("Error logging in", e));
+            //return new Result.Error(new IOException("Error logging in", e));
+            e.printStackTrace();
 
         } finally {
         }

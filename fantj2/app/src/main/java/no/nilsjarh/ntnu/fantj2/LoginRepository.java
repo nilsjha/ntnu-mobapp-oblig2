@@ -1,5 +1,11 @@
 package no.nilsjarh.ntnu.fantj2;
 
+import android.util.Log;
+
+import java.util.concurrent.Callable;
+import java.util.function.Consumer;
+import java.util.function.Function;
+
 import no.nilsjarh.ntnu.fantj2.model.LoggedInUser;
 
 /**
@@ -43,12 +49,17 @@ public class LoginRepository {
         // @see https://developer.android.com/training/articles/keystore
     }
 
-    public Result<LoggedInUser> login(String username, String password) {
+    public void login(String username, String password, Consumer<Result<LoggedInUser>> resultCallback) {
         // handle login
-        Result<LoggedInUser> result = dataSource.login(username, password);
-        if (result instanceof Result.Success) {
-            setLoggedInUser(((Result.Success<LoggedInUser>) result).getData());
-        }
-        return result;
+
+        dataSource.login(username, password, (Result<LoggedInUser> loggedInUserResult)->{
+            Log.d("AUTH", "GOT RESULT FROM DATASOURCE");
+            Log.d("AUTH", loggedInUserResult.toString());
+            if (loggedInUserResult instanceof Result.Success) {
+                setLoggedInUser(((Result.Success<LoggedInUser>) loggedInUserResult).getData());
+            }
+            resultCallback.accept(loggedInUserResult);
+        });
+
     }
 }

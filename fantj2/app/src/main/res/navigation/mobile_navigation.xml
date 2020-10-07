@@ -13,13 +13,20 @@
         <action
             android:id="@+id/action_nav_home_to_nav_gallery"
             app:destination="@id/nav_market" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_login"
+            app:destination="@id/nav_login" />
     </fragment>
 
     <fragment
         android:id="@+id/nav_market"
         android:name="no.nilsjarh.ntnu.fantj2.ui.market.MarketFragment"
         android:label="@string/menu_market"
-        tools:layout="@layout/fragment_market" />
+        tools:layout="@layout/fragment_market" >
+        <action
+            android:id="@+id/action_nav_market_to_nav_item"
+            app:destination="@id/nav_item" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_item"
@@ -30,7 +37,7 @@
     <fragment
         android:id="@+id/nav_login"
         android:name="no.nilsjarh.ntnu.fantj2.ui.login.LoginFragment"
-        android:label="Items"
+        android:label="Logon"
         tools:layout="@layout/fragment_item" />
 
 </navigation>
