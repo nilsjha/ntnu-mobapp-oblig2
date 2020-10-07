@@ -24,6 +24,12 @@
     <fragment
         android:id="@+id/nav_item"
         android:name="no.nilsjarh.ntnu.fantj2.ui.item.ItemFragment"
-        android:label="Marketplace"
+        android:label="Items"
         tools:layout="@layout/fragment_item" />
+
+    <activity
+        android:id="@+id/nav_login"
+        android:name="no.nilsjarh.ntnu.fantj2.ui.login.LoginActivity"
+        android:label="Login"
+        tools:layout="@layout/activity_login" />
 </navigation>
