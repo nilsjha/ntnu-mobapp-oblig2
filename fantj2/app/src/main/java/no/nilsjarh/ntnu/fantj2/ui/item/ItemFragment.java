@@ -11,9 +11,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.RecyclerView;
 
 import no.nilsjarh.ntnu.fantj2.R;
+import no.nilsjarh.ntnu.fantj2.model.Item;
 
 public class ItemFragment extends Fragment {
 
@@ -24,12 +24,17 @@ public class ItemFragment extends Fragment {
         itemViewModel =
                 new ViewModelProvider(this).get(ItemViewModel.class);
         View root = inflater.inflate(R.layout.fragment_item, container, false);
-        final TextView textView = root.findViewById(R.id.item_title);
+        final TextView itemTitle = root.findViewById(R.id.item_title);
+        final TextView itemDescr = root.findViewById(R.id.item_description);
+        final TextView itemPrice = root.findViewById(R.id.item_price);
+        final TextView sellerName = root.findViewById(R.id.seller_name);
+        final TextView sellerMail = root.findViewById(R.id.seller_mail);
 
-        itemViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        itemViewModel.getActiveItem().observe(getViewLifecycleOwner(), new Observer<Item>() {
             @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
+            public void onChanged(@Nullable Item i) {
+                itemTitle.setText(i.getTitle());
+                itemPrice.setText(i.getPrice().toString() + " " + getString(R.string.currency_suffix));
             }
         });
 

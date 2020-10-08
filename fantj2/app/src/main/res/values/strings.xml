@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Fant</string>
+    <string name="currency_suffix">kr</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Click the image to login</string>
@@ -13,6 +14,24 @@
 
     <string name="thumbnail_item_placeholder">Thumbnail of item</string>
     <string name="image_item_placeholder">Image of item for sale</string>
+
+   <string name="item_title">Imported Goods</string>
+    <string name="action_item_purchase">Purchase item</string>
+    <string name="seller_title">Seller</string>
+    <string name="seller_name">Jan Banan</string>
+    <string name="seller_email">asdasdfgasfd@asdasdd.no</string>
+    <string name="item_description">
+        asdfsadfasd saf dsaf saf asdf sadf sdaf asdf daf sadf asdaf
+        sad fsaf dsaf dsaf ghfsg sadfadsf asdfasdf asdfasdf safasdf sadf dasf  asdfadsf asdf asdf
+        sad fsaf dsaf dsaf ghfsg sadfadsf asdfasdf asdfasdf safasdf sadf dasf  asdfadsf asdf asdf
+        sad fsaf dsaf dsaf ghfsg sadfadsf asdfasdf asdfasdf safasdf sadf dasf  asdfadsf asdf asdf
+        sad fsaf dsaf dsaf ghfsg sadfadsf asdfasdf asdfasdf safasdf sadf dasf  asdfadsf asdf asdf
+        sad fsaf dsaf dsaf ghfsg sadfadsf asdfasdf asdfasdf safasdf sadf dasf  asdfadsf asdf asdf
+        sad fsaf dsaf dsaf ghfsg sadfadsf asdfasdf asdfasdf safasdf sadf dasf  asdfadsf asdf asdf
+        sad fsaf dsaf dsaf ghfsg sadfadsf asdfasdf asdfasdf safasdf sadf dasf  asdfadsf asdf asdf
+        sad fsaf dsaf dsaf ghfsg sadfadsf asdfasdf asdfasdf safasdf sadf dasf  asdfadsf asdf asdf
+    </string>
+
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>

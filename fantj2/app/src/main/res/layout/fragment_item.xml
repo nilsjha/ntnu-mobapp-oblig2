@@ -13,11 +13,12 @@
     <ImageView
         android:id="@+id/item_image"
         android:layout_width="0dp"
-        android:layout_height="253dp"
+        android:layout_height="200dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:contentDescription="@string/image_item_placeholder"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,11 +31,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
         android:text="Tittel"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintBottom_toTopOf="@id/item_price"
-        app:layout_constraintEnd_toStartOf="@+id/seller_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/item_image" />
 
@@ -43,41 +41,125 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="24dp"
-        android:text="TextView"
+        android:text="price NOK"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintEnd_toStartOf="@+id/seller_text"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/item_title"
         tools:text="1000 kr" />
 
-    <TextView
-        android:id="@+id/seller_text"
-        android:layout_width="168dp"
-        android:layout_height="20dp"
-        android:text="Seller"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintBottom_toBottomOf="@+id/item_title"
-        tools:layout_editor_absoluteX="208dp" />
-
-    <TextView
-        android:id="@+id/item_description"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/item_price">
+
+        <TextView
+            android:id="@+id/s_seller"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingHorizontal="16dp"
+            android:text="@string/seller_title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@android:color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@color/cardview_dark_background"
+            android:paddingVertical="8dp"
+            android:paddingLeft="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/s_seller">
+
+            <TextView
+                android:id="@+id/seller_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="The name of the seller"
+                android:text="@string/seller_name"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@android:color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/seller_mail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:contentDescription="The email of the seller"
+                android:text="@string/seller_email"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@android:color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/seller_name" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:id="@+id/item_scroll"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="1dp"
+        android:scrollbarStyle="insideInset"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/item_description"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:lineSpacingExtra="8sp"
+                android:paddingHorizontal="16dp"
+                android:text="@string/item_description"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/background_dark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:text="asdfsadfasd saf dsaf saf asdf sadf sdaf asdf daf sadf asdaf sad fsaf dsaf dsaf ghfsg sadfadsf asdfasdf asdfasdf safasdf sadf dasf  asdfadsf asdf asdf dsafasdf sadf asdf " />
+        app:layout_constraintTop_toBottomOf="@+id/item_scroll">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintTop_toTopOf="@+id/item_price" />
+        <Button
+            android:id="@+id/button_purchase"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/action_item_purchase"
+            android:layout_margin="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

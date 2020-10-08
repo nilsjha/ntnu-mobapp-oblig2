@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         // Create a ViewModel the first time the system calls an activity's onCreate() method.
         // Re-created activities receive the same MyViewModel instance created by the first activity.
         ItemViewModel model = new ViewModelProvider(this).get(ItemViewModel.class);
-        model.getText().observe(this, items -> {
+        model.getActiveItem().observe(this, items -> {
             // Update UI
 
         });
