@@ -27,7 +27,6 @@ public class LoginDataSource {
                 authCall.enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> tokenResponse) {
-                        LoggedInUser user = new LoggedInUser();
                         Log.d("AUTH", "GOT USER DATA");
 
                         if (tokenResponse.isSuccessful()) {
@@ -37,6 +36,7 @@ public class LoginDataSource {
                             userCall.enqueue(new Callback<LoggedInUser>() {
                                 @Override
                                 public void onResponse(Call<LoggedInUser> call, Response<LoggedInUser> response) {
+                                    LoggedInUser user = new LoggedInUser();
                                     user = response.body();
                                     user.setUserToken(token);
                                     user.setUserName(username);
