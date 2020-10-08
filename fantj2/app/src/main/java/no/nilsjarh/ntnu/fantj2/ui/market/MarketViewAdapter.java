@@ -8,7 +8,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +49,7 @@ public class MarketViewAdapter extends RecyclerView.Adapter<MarketViewAdapter.Vi
             super(itemView);
 
             title = itemView.findViewById(R.id.item_title);
-            price = itemView.findViewById(R.id.item_price);
+            price = itemView.findViewById(R.id.seller_text);
         }
 
         @Override

@@ -34,7 +34,7 @@
             tools:text="@tools:sample/cities" />
 
         <TextView
-            android:id="@+id/item_price"
+            android:id="@+id/seller_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:baselineAligned="false"

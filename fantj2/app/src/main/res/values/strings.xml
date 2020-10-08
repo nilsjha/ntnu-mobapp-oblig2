@@ -12,6 +12,7 @@
     <string name="menu_item">Item</string>
 
     <string name="thumbnail_item_placeholder">Thumbnail of item</string>
+    <string name="image_item_placeholder">Image of item for sale</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>

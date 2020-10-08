@@ -34,10 +34,21 @@ public class LoginDataSource {
                             String token = tokenResponse.headers().get("Authorization");
                             System.err.println("OK LOGIN AUTH" + token);
                             Call<LoggedInUser> userCall = authService.getCurrentUser(token);
-                            user.setUserToken(token);
-                            user.setUserName(username);
+                            userCall.enqueue(new Callback<LoggedInUser>() {
+                                @Override
+                                public void onResponse(Call<LoggedInUser> call, Response<LoggedInUser> response) {
+                                    user = response.body();
+                                    user.setUserToken(token);
+                                    user.setUserName(username);
+                                    resultCallback.accept(new Result.Success<>(user));
+                                }
 
-                            resultCallback.accept(new Result.Success<>(user));
+                                @Override
+                                public void onFailure(Call<LoggedInUser> call, Throwable t) {
+
+                                }
+                            });
+
                         }
                     }
 

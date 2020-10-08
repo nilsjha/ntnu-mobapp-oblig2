@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel;
 import android.util.Log;
 import android.util.Patterns;
 
+import java.util.function.Consumer;
+
 import no.nilsjarh.ntnu.fantj2.LoginRepository;
 import no.nilsjarh.ntnu.fantj2.Result;
 import no.nilsjarh.ntnu.fantj2.model.LoggedInUser;
@@ -43,6 +45,22 @@ public class LoginViewModel extends ViewModel {
                 loginResult.setValue(new LoginResult(R.string.login_failed));
             }
         });
+
+       // TO UNDERSTAND CALLBACKS AND ANOYNMOUS FUNCTIONS
+       // loginRepository.login(username, password, new Consumer<Result<LoggedInUser>>() {
+       //     @Override
+       //     public void accept(Result<LoggedInUser> finalResult) {
+       //         Log.d("AUTH", "GOT AUTH RESULT FINAL");
+       //         if (finalResult instanceof Result.Success) {
+       //             LoggedInUser data = ((Result.Success<LoggedInUser>) finalResult).getData();
+       //             loginResult.setValue(new LoginResult(new LoggedInUserView(data.getUserName())));
+       //         } else {
+       //             loginResult.setValue(new LoginResult(R.string.login_failed));
+       //         }
+       //     }
+       // });
+
+
     }
 
     public void loginDataChanged(String username, String password) {
