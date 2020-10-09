@@ -16,8 +16,13 @@ import no.nilsjarh.ntnu.fantj2.model.Item;
 
 public class MarketViewAdapter extends RecyclerView.Adapter<MarketViewAdapter.ViewHolder> {
 
-    private List<Item> itemList = new ArrayList<>();
-    private View.OnClickListener listener;
+    private List<Item> itemList;
+    private final RecyclerViewClickListener listener;
+
+    public MarketViewAdapter(List<Item> items, RecyclerViewClickListener listener) {
+        this.itemList = items;
+        this.listener = listener;
+    }
 
     @NonNull
     @Override
@@ -31,8 +36,10 @@ public class MarketViewAdapter extends RecyclerView.Adapter<MarketViewAdapter.Vi
         Item i = itemList.get(position);
         holder.title.setText(i.getItemTitle());
         holder.price.setText(i.getItemPrice().toString() + " kr");
-        holder.itemView.setOnClickListener(listener);
+        holder.bind(i, listener);
     }
+
+
     public void setItems(List<Item> itemList) {
         this.itemList = itemList;
         notifyDataSetChanged();
@@ -43,7 +50,11 @@ public class MarketViewAdapter extends RecyclerView.Adapter<MarketViewAdapter.Vi
         return itemList.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public interface RecyclerViewClickListener {
+        void onClickItem(Item i);
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView title;
         TextView price;
 
@@ -54,9 +65,15 @@ public class MarketViewAdapter extends RecyclerView.Adapter<MarketViewAdapter.Vi
             price = itemView.findViewById(R.id.item_price);
         }
 
-        @Override
-        public void onClick(View view) {
-            Toast.makeText(view.getContext(), "Clicked element" + getLayoutPosition() + " - " + this.title.getText(), Toast.LENGTH_SHORT).show();
+        public void bind(final Item item, final RecyclerViewClickListener listener) {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onClickItem(item);
+
+                }
+            });
+
         }
     }
 }

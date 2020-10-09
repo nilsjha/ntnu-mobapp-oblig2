@@ -15,6 +15,7 @@ public class ItemRepository {
     public static String MARKETPLACE_SERVICE_URL = "https://nilsjarh-1.uials.no";
     private static ItemRepository ItemRepository;
 
+    private LoginRepository loginRepository;
     private MarketplaceApi serviceApi;
     private MutableLiveData<List<Item>> mItemsResponseLiveData;
     private MutableLiveData<Item> mSingleItemResponseLiveData;
@@ -75,4 +76,18 @@ public class ItemRepository {
             }
         });
     }
+    public void purchaseItem(Long id, String token) {
+        serviceApi.purchaseItem(id, token).enqueue(new Callback<Item>() {
+            @Override
+            public void onResponse(Call<Item> call, Response<Item> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<Item> call, Throwable t) {
+
+            }
+        });
+    }
+
 }

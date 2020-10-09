@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import no.nilsjarh.ntnu.fantj2.R;
@@ -23,12 +25,18 @@ public class MarketFragment extends Fragment {
 
     private MarketViewModel marketViewModel;
     private MarketViewAdapter marketViewAdapter;
+    private List<Item> itemList;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         marketViewModel =
                 new ViewModelProvider(this).get(MarketViewModel.class);
-        marketViewAdapter = new MarketViewAdapter();
+        marketViewAdapter = new MarketViewAdapter(new ArrayList<Item>(), new MarketViewAdapter.RecyclerViewClickListener() {
+            @Override
+            public void onClickItem(Item i) {
+                Toast.makeText(getContext(), "Clicked element" + i.getItemTitle(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
         View root = inflater.inflate(R.layout.fragment_market, container, false);
@@ -55,7 +63,6 @@ public class MarketFragment extends Fragment {
                 marketViewAdapter.setItems(itemList);
             }
         });
-
 
         return root;
     }
