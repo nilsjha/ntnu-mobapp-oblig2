@@ -19,7 +19,7 @@ public class MarketViewModel extends ViewModel {
     private LiveData<List<Item>> itemListLiveData;
     private ItemRepository itemRepo;
 
-    public MarketViewModel() {
+    public MarketViewModel(ItemRepository instance) {
         text = new MutableLiveData<String>();
         text.setValue("This app got parallax effects!");
 
