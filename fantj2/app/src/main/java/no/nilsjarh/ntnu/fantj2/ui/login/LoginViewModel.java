@@ -7,8 +7,6 @@ import androidx.lifecycle.ViewModel;
 import android.util.Log;
 import android.util.Patterns;
 
-import java.util.function.Consumer;
-
 import no.nilsjarh.ntnu.fantj2.LoginRepository;
 import no.nilsjarh.ntnu.fantj2.Result;
 import no.nilsjarh.ntnu.fantj2.model.LoggedInUser;
@@ -40,7 +38,7 @@ public class LoginViewModel extends ViewModel {
             Log.d("AUTH", "GOT AUTH RESULT FINAL");
             if (finalResult instanceof Result.Success) {
                 LoggedInUser data = ((Result.Success<LoggedInUser>) finalResult).getData();
-                loginResult.setValue(new LoginResult(new LoggedInUserView(data.getUserName())));
+                loginResult.setValue(new LoginResult(new LoggedInUserView(data.getUserEmail())));
             } else {
                 loginResult.setValue(new LoginResult(R.string.login_failed));
             }

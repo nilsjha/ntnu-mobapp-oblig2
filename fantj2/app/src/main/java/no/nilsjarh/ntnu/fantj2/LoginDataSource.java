@@ -39,7 +39,7 @@ public class LoginDataSource {
                                     LoggedInUser user = new LoggedInUser();
                                     user = response.body();
                                     user.setUserToken(token);
-                                    user.setUserName(username);
+                                    user.setUserEmail(username);
                                     resultCallback.accept(new Result.Success<>(user));
                                 }
 
