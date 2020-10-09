@@ -33,8 +33,8 @@ public class ItemFragment extends Fragment {
         itemViewModel.getActiveItem().observe(getViewLifecycleOwner(), new Observer<Item>() {
             @Override
             public void onChanged(@Nullable Item i) {
-                itemTitle.setText(i.getTitle());
-                itemPrice.setText(i.getPrice().toString() + " " + getString(R.string.currency_suffix));
+                itemTitle.setText(i.getItemTitle());
+                itemPrice.setText(i.getItemPrice().toString() + " " + getString(R.string.currency_suffix));
             }
         });
 

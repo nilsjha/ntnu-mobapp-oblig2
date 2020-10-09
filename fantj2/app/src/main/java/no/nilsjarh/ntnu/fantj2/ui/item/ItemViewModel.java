@@ -6,25 +6,28 @@ import androidx.lifecycle.ViewModel;
 
 import java.math.BigDecimal;
 
+import no.nilsjarh.ntnu.fantj2.ItemRepository;
 import no.nilsjarh.ntnu.fantj2.model.Item;
 
 public class ItemViewModel extends ViewModel {
-
-    private MutableLiveData<Item> mActiveItem;
-    private MutableLiveData<String> mItemTitle;
-    private MutableLiveData<String> mItemDecription;
-    //FIXME: HENT USERSELLER DATA I EIGE REPO + VIEWMODEL
+    private LiveData<Item> activeItem;
+    private ItemRepository itemRepo;
 
     public ItemViewModel() {
-        mActiveItem = new MutableLiveData<>();
-        Item i = new Item();
-        i.setTitle("Jan sine beste hits");
-        i.setPrice(BigDecimal.valueOf(20000));
-        mActiveItem.setValue(i);
+        this.activeItem = new LiveData<Item>() {
+        };
+
+        if(activeItem == null) {
+            itemRepo = ItemRepository.getInstance();
+            activeItem = itemRepo.getSingleItemLiveData();
+        }
     }
 
+    public void getItem(Long id) {
+        itemRepo.getSingleItem(id);
+    }
 
     public LiveData<Item> getActiveItem() {
-        return mActiveItem;
+        return activeItem;
     }
 }

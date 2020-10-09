@@ -31,9 +31,12 @@ public class MarketViewModel extends AndroidViewModel {
 
 
     public void getItems() {
-        itemRepo.getItems();
+        itemRepo.getItemList();
     }
 
+    public void selectItem(Item i) {
+        itemRepo.getSingleItem(i.getId());
+    }
 
     public LiveData<List<Item>> getItemListLiveData() {
         return itemListLiveData;

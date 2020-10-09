@@ -17,6 +17,7 @@ import no.nilsjarh.ntnu.fantj2.model.Item;
 public class MarketViewAdapter extends RecyclerView.Adapter<MarketViewAdapter.ViewHolder> {
 
     private List<Item> itemList = new ArrayList<>();
+    private View.OnClickListener listener;
 
     @NonNull
     @Override
@@ -28,8 +29,9 @@ public class MarketViewAdapter extends RecyclerView.Adapter<MarketViewAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull MarketViewAdapter.ViewHolder holder, int position) {
         Item i = itemList.get(position);
-        holder.title.setText(i.getTitle());
-        holder.price.setText(i.getPrice().toString() + " kr");
+        holder.title.setText(i.getItemTitle());
+        holder.price.setText(i.getItemPrice().toString() + " kr");
+        holder.itemView.setOnClickListener(listener);
     }
     public void setItems(List<Item> itemList) {
         this.itemList = itemList;
@@ -49,7 +51,7 @@ public class MarketViewAdapter extends RecyclerView.Adapter<MarketViewAdapter.Vi
             super(itemView);
 
             title = itemView.findViewById(R.id.item_title);
-            price = itemView.findViewById(R.id.seller_text);
+            price = itemView.findViewById(R.id.item_price);
         }
 
         @Override

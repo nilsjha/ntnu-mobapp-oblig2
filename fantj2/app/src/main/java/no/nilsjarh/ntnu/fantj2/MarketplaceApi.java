@@ -15,10 +15,13 @@ public interface MarketplaceApi {
     public static String PREFIX = "/api/marketplace/";
 
     @GET(PREFIX + "list?list-all=true")
-    public Call<List<Item>> getItems();
+    public Call<List<Item>> getItemList();
 
     @GET(PREFIX + "view")
-    public Call<Item> getDetails(@Query("id") Long id);
+    public Call<Item> getSingleItem(@Query("id") Long id);
+
+    @GET(PREFIX + "purchase")
+    public Call<Item> purchaseItem(@Query("item") Long id);
 
     @Multipart
     @POST(PREFIX + "attach")
@@ -27,4 +30,6 @@ public interface MarketplaceApi {
             @Part("description") String descr,
             @Part("image")RequestBody image
             );
+
+
 }

@@ -16,9 +16,8 @@ public class ItemRepository {
     private static ItemRepository ItemRepository;
 
     private MarketplaceApi serviceApi;
-    private MutableLiveData<List<Item>> itemsResponseLiveData;
-    private MutableLiveData<Item> viewItemResponseLiveData;
-    private boolean authenticated;
+    private MutableLiveData<List<Item>> mItemsResponseLiveData;
+    private MutableLiveData<Item> mSingleItemResponseLiveData;
 
     public static ItemRepository getInstance() {
         if (ItemRepository == null) {
@@ -29,45 +28,49 @@ public class ItemRepository {
 
     // private constructor : singleton access
     private ItemRepository() {
-        itemsResponseLiveData = new MutableLiveData<>();
+        mItemsResponseLiveData = new MutableLiveData<>();
 
         Retrofit marketplaceService = RestService.getRetrofitClient(false);
         serviceApi = marketplaceService.create(MarketplaceApi.class);
     }
 
-    public void getItems() {
-        serviceApi.getItems().enqueue(new Callback<List<Item>>() {
+    public LiveData<List<Item>> getItemsLiveData() {
+        return mItemsResponseLiveData;
+    }
+
+    public LiveData<Item> getSingleItemLiveData() {
+        return mSingleItemResponseLiveData;
+    }
+    public void getItemList() {
+        serviceApi.getItemList().enqueue(new Callback<List<Item>>() {
             @Override
             public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
                 if (response.isSuccessful()) {
-                    itemsResponseLiveData.postValue(response.body());
+                    mItemsResponseLiveData.postValue(response.body());
                 }
             }
 
             @Override
             public void onFailure(Call<List<Item>> call, Throwable t) {
-                itemsResponseLiveData.postValue(null);
+                mItemsResponseLiveData.postValue(null);
 
             }
         });
     }
 
-    public LiveData<List<Item>> getItemsLiveData() {
-        return itemsResponseLiveData;
-    }
 
-    public void viewItem(Long id) {
-        serviceApi.getDetails(id).enqueue(new Callback<Item>() {
+    public void getSingleItem(Long id) {
+        serviceApi.getSingleItem(id).enqueue(new Callback<Item>() {
             @Override
             public void onResponse(Call<Item> call, Response<Item> response) {
                if (response.isSuccessful()) {
-                   viewItemResponseLiveData.postValue(response.body());
+                   mSingleItemResponseLiveData.postValue(response.body());
+                   };
                }
-            }
 
             @Override
             public void onFailure(Call<Item> call, Throwable t) {
-                itemsResponseLiveData.postValue(null);
+                mSingleItemResponseLiveData.postValue(null);
 
             }
         });
