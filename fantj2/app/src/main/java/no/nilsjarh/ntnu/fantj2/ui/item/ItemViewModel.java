@@ -19,6 +19,7 @@ public class ItemViewModel extends ViewModel {
         this.itemRepo = itemRepo;
         this.loginRepo = loginRepo;
         if (activeItemLiveData == null) {
+            Log.d("ITEMMODEL-WARN","No active item in model. Overwriting blank");
             activeItemLiveData = new MutableLiveData<>();
         }
     }
@@ -42,9 +43,7 @@ public class ItemViewModel extends ViewModel {
     }
 
     public LiveData<Item> getActiveItemLiveData() {
-        if (activeItemLiveData == null) {
-            activeItemLiveData = new MutableLiveData<>();
-        }
+        Log.d("ITEMMODEL-INFO","Returned observable LiveData");
         return activeItemLiveData;
     }
 }
