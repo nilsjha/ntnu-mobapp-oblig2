@@ -3,11 +3,13 @@ package no.nilsjarh.ntnu.fantj2;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Button;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -31,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
+
+        ItemViewModel itemViewModel = new ViewModelProvider(this, new ItemViewModelFactory()).get(ItemViewModel.class);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -38,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -53,13 +59,11 @@ public class MainActivity extends AppCompatActivity {
 
         // Create a ViewModel the first time the system calls an activity's onCreate() method.
         // Re-created activities receive the same MyViewModel instance created by the first activity.
-        ItemViewModel model = new ViewModelProvider(this, new ItemViewModelFactory()).get(ItemViewModel.class);
-        model.getActiveItemLiveData().observe(this, items -> {
+        itemViewModel.getActiveItemLiveData().observe(this, items -> {
             // Update UI
 
+
         });
-
-
     }
 
     @Override

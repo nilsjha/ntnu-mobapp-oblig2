@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 
+import no.nilsjarh.ntnu.fantj2.R;
+
 public class User {
     @Expose
     @SerializedName("id")
@@ -96,6 +98,10 @@ public class User {
     }
 
     public String getFullName() {
-        return userFirstName + "" + userLastName;
+        if (userLastName == null || userLastName == null) {
+            return "";
+        } else {
+            return userFirstName + "" + userLastName;
+        }
     }
 }
