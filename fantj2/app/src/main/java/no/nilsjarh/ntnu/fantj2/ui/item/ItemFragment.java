@@ -71,6 +71,7 @@ public class ItemFragment extends Fragment {
                 itemTitle.setText(i.getItemTitle());
                 itemDescr.setText(i.getItemDescription());
                 itemPrice.setText(i.getItemPrice().toString());
+                purchaseContainer.setVisibility(View.GONE);
 
                 User seller = i.getItemSeller();
                 String SellerNameTxt = seller.getFullName().equals("") ? getString(R.string.seller_name_placeholder) : seller.getFullName();
@@ -88,15 +89,14 @@ public class ItemFragment extends Fragment {
                 }
 
                 if (itemViewModel.getLoggedInState()) {
-                    purchaseContainer.setVisibility(View.GONE);
                     if (i.getItemPurchase() == null) {
                         purchaseContainer.setVisibility(View.VISIBLE);
                     }
                 } else {
                     sellerMail.setText(R.string.seller_mail_hidden_placeholder);
-                    if (i.getItemPurchase() != null) {
-                      itemPrice.setText(getString(R.string.sold_text));
                   }
+                if (i.getItemPurchase() != null) {
+                itemPrice.setText(getString(R.string.sold_text));
                 }
             }
         });
