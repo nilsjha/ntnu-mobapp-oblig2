@@ -26,7 +26,7 @@ public class ItemFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         itemViewModel =
-                new ViewModelProvider(this, new ItemViewModelFactory()).get(ItemViewModel.class);
+                new ViewModelProvider(requireActivity(), new ItemViewModelFactory()).get(ItemViewModel.class);
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,

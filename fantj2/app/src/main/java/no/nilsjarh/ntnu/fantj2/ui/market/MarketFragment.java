@@ -34,7 +34,7 @@ public class MarketFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        elementInViewModel = new ViewModelProvider(this, new ItemViewModelFactory()).get(ItemViewModel.class);
+        elementInViewModel = new ViewModelProvider(requireActivity(), new ItemViewModelFactory()).get(ItemViewModel.class);
 
         marketViewModel = new ViewModelProvider(this, new MarketViewModelFactory()).get(MarketViewModel.class);
         marketViewAdapter = new MarketViewAdapter(new ArrayList<Item>(), new MarketViewAdapter.RecyclerViewClickListener() {
