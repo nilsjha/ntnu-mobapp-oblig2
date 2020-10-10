@@ -60,7 +60,8 @@ public class ItemFragment extends Fragment {
                 User seller = i.getItemSeller();
                 String SellerNameTxt = seller.getFullName().equals("nullnull") ? "Private seller" : seller.getFullName();
                 sellerName.setText(SellerNameTxt);
-                sellerMail.setText(seller.getUserEmail());
+                // FIXME: sellerMail.setText(seller.getUserEmail());
+                sellerMail.setText("[hidden email]");
 
                 if (i.getAttachmentList() != null) {
                     if (i.getAttachmentList().size() > 0) {
