@@ -1,33 +1,50 @@
 package no.nilsjarh.ntnu.fantj2.ui.item;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import java.math.BigDecimal;
-
 import no.nilsjarh.ntnu.fantj2.ItemRepository;
+import no.nilsjarh.ntnu.fantj2.LoginRepository;
 import no.nilsjarh.ntnu.fantj2.model.Item;
 
 public class ItemViewModel extends ViewModel {
-    private LiveData<Item> activeItem;
+    private MutableLiveData<Item> activeItemLiveData;
     private ItemRepository itemRepo;
+    private LoginRepository loginRepo;
 
-    public ItemViewModel() {
-        this.activeItem = new LiveData<Item>() {
-        };
-
-        if(activeItem == null) {
-            itemRepo = ItemRepository.getInstance();
-            activeItem = itemRepo.getSingleItemLiveData();
+    public ItemViewModel(ItemRepository itemRepo, LoginRepository loginRepo) {
+        this.itemRepo = itemRepo;
+        this.loginRepo = loginRepo;
+        if (activeItemLiveData == null) {
+            activeItemLiveData = new MutableLiveData<>();
         }
     }
 
-    public void getItem(Long id) {
-        itemRepo.getSingleItem(id);
+    public void loadActiveItem(Long id) {
+            itemRepo.getSingleItem(id, (Item receivedItem)-> {
+                if (receivedItem != null) {
+                    setActiveItem(receivedItem);
+                }
+            });
     }
 
-    public LiveData<Item> getActiveItem() {
-        return activeItem;
+    public void setActiveItem(Item item) {
+        this.activeItemLiveData.setValue(item);
+        Log.d("ITEMMODEL-INFO","Item was overwritten and flagged");
+        Log.d("ITEMMODEL-INFO", "New item " + activeItemLiveData.getValue().getId());
+    }
+
+    public void purchaseItem(Item item) {
+        itemRepo.purchaseItem(item.getId(), loginRepo.getToken());
+    }
+
+    public LiveData<Item> getActiveItemLiveData() {
+        if (activeItemLiveData == null) {
+            activeItemLiveData = new MutableLiveData<>();
+        }
+        return activeItemLiveData;
     }
 }

@@ -1,5 +1,8 @@
 package no.nilsjarh.ntnu.fantj2;
 
+import android.util.Log;
+
+import androidx.core.util.Consumer;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -39,9 +42,6 @@ public class ItemRepository {
         return mItemsResponseLiveData;
     }
 
-    public LiveData<Item> getSingleItemLiveData() {
-        return mSingleItemResponseLiveData;
-    }
     public void getItemList() {
         serviceApi.getItemList().enqueue(new Callback<List<Item>>() {
             @Override
@@ -60,18 +60,20 @@ public class ItemRepository {
     }
 
 
-    public void getSingleItem(Long id) {
+    public void getSingleItem(Long id, Consumer<Item> itemCallback) {
         serviceApi.getSingleItem(id).enqueue(new Callback<Item>() {
             @Override
             public void onResponse(Call<Item> call, Response<Item> response) {
                if (response.isSuccessful()) {
-                   mSingleItemResponseLiveData.postValue(response.body());
+                   Log.d("ITEM-INFO:", "Item retrieved OK");
+                   itemCallback.accept(response.body());
                    };
                }
 
             @Override
             public void onFailure(Call<Item> call, Throwable t) {
-                mSingleItemResponseLiveData.postValue(null);
+                Log.d("ITEM-WARN:", "Item retrieve failed");
+                itemCallback.accept(null);
 
             }
         });

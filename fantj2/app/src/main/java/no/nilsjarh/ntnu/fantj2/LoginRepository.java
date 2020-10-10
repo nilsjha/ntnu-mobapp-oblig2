@@ -56,8 +56,8 @@ public class LoginRepository {
         // handle login
 
         dataSource.login(username, password, (Result<LoggedInUser> loggedInUserResult)->{
-            Log.d("AUTH", "GOT RESULT FROM DATASOURCE");
-            Log.d("AUTH", loggedInUserResult.toString());
+            Log.d("AUTH-INFO", "Got result from LoginDataSource");
+            Log.d("AUTH-INFO", loggedInUserResult.toString());
             if (loggedInUserResult instanceof Result.Success) {
                 setLoggedInUser(((Result.Success<LoggedInUser>) loggedInUserResult).getData());
             }

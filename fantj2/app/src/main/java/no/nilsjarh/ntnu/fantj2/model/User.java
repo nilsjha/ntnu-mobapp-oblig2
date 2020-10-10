@@ -94,4 +94,8 @@ public class User {
     public void setUserMobilePhone(String userMobilePhone) {
         this.userMobilePhone = userMobilePhone;
     }
+
+    public String getFullName() {
+        return userFirstName + "" + userLastName;
+    }
 }

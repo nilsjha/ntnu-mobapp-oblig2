@@ -23,19 +23,15 @@ public class MarketViewModel extends ViewModel {
         text = new MutableLiveData<String>();
         text.setValue("This app got parallax effects!");
 
+        itemRepo = ItemRepository.getInstance();
         if(itemListLiveData == null) {
-            itemRepo = ItemRepository.getInstance();
             itemListLiveData = itemRepo.getItemsLiveData();
         }
     }
 
 
-    public void getItems() {
+    public void loadItemList() {
         itemRepo.getItemList();
-    }
-
-    public void selectItem(Item i) {
-        itemRepo.getSingleItem(i.getId());
     }
 
     public LiveData<List<Item>> getItemListLiveData() {

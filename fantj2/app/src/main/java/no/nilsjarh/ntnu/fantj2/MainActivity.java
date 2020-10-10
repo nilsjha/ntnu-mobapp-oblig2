@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import no.nilsjarh.ntnu.fantj2.ui.item.ItemViewModel;
+import no.nilsjarh.ntnu.fantj2.ui.item.ItemViewModelFactory;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -52,11 +53,11 @@ public class MainActivity extends AppCompatActivity {
 
         // Create a ViewModel the first time the system calls an activity's onCreate() method.
         // Re-created activities receive the same MyViewModel instance created by the first activity.
-        ItemViewModel model = new ViewModelProvider(this).get(ItemViewModel.class);
-        model.getActiveItem().observe(this, items -> {
+        //ItemViewModel model = new ViewModelProvider(this, new ItemViewModelFactory()).get(ItemViewModel.class);
+        //model.getActiveItem().observe(this, items -> {
             // Update UI
 
-        });
+        //});
 
 
     }
