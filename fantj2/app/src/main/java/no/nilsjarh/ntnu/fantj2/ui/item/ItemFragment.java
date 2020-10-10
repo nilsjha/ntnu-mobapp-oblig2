@@ -92,6 +92,7 @@ public class ItemFragment extends Fragment {
                     if (i.getItemPurchase() == null) {
                         purchaseContainer.setVisibility(View.VISIBLE);
                     }
+                    sellerMail.setText("<hidden>");
                 } else {
                     sellerMail.setText(R.string.seller_mail_hidden_placeholder);
                   }
