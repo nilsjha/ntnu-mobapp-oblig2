@@ -1,5 +1,6 @@
 package no.nilsjarh.ntnu.fantj2.ui.item;
 
+import android.graphics.Bitmap;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -8,6 +9,7 @@ import androidx.lifecycle.ViewModel;
 
 import no.nilsjarh.ntnu.fantj2.ItemRepository;
 import no.nilsjarh.ntnu.fantj2.LoginRepository;
+import no.nilsjarh.ntnu.fantj2.model.Attachment;
 import no.nilsjarh.ntnu.fantj2.model.Item;
 
 public class ItemViewModel extends ViewModel {
@@ -46,4 +48,5 @@ public class ItemViewModel extends ViewModel {
         Log.d("ITEMMODEL-INFO","Returned observable LiveData");
         return activeItemLiveData;
     }
+
 }
