@@ -56,7 +56,9 @@ public class ItemFragment extends Fragment {
         purchaseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                itemViewModel.purchaseActiveItem();
+                if(itemViewModel.purchaseActiveItem()) {
+                    purchaseButton.setEnabled(false);
+                };
             }
         });
 
@@ -65,7 +67,7 @@ public class ItemFragment extends Fragment {
             public void onChanged(@Nullable Item i) {
                 Log.d("VIEW-INFO", "Updating UI text elements for item " + i.getId());
                 i = itemViewModel.getActiveItemLiveData().getValue();
-                Log.d("ITEM-INFO", "Item "+ i.getId() +" " + i.getItemTitle() + "changed.");
+                Log.d("ITEM-INFO", "Item " + i.getId() + " " + i.getItemTitle() + "changed.");
                 itemTitle.setText(i.getItemTitle());
                 itemDescr.setText(i.getItemDescription());
                 itemPrice.setText(i.getItemPrice().toString());
@@ -81,19 +83,20 @@ public class ItemFragment extends Fragment {
                         Attachment attachment = i.getAttachmentList().get(0);
                         Picasso.get().load(
                                 RestService.DOMAIN + MarketplaceApi.PREFIX + "image/"
-                                        + attachment.getId()+"?"+ itemPosterWidth).into(itemPoster);
+                                        + attachment.getId() + "?" + itemPosterWidth).into(itemPoster);
                     }
                 }
 
-                if (i.getItemPurchase() == null) {
-                    if (itemViewModel.getLoggedInState()) {
+                if (itemViewModel.getLoggedInState()) {
+                    purchaseContainer.setVisibility(View.GONE);
+                    if (i.getItemPurchase() == null) {
                         purchaseContainer.setVisibility(View.VISIBLE);
-                    } else {
-                        purchaseContainer.setVisibility(View.GONE);
                     }
-                 } else {
-                    itemPrice.setText(getString(R.string.sold_text));
+                } else {
                     sellerMail.setVisibility(View.GONE);
+                    if (i.getItemPurchase() != null) {
+                      itemPrice.setText(getString(R.string.sold_text));
+                  }
                 }
             }
         });

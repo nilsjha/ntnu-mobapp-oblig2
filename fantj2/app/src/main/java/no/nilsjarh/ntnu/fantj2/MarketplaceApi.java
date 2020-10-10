@@ -3,6 +3,7 @@ package no.nilsjarh.ntnu.fantj2;
 import java.util.List;
 
 import no.nilsjarh.ntnu.fantj2.model.Item;
+import no.nilsjarh.ntnu.fantj2.model.Purchase;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -22,7 +23,7 @@ public interface MarketplaceApi {
     public Call<Item> getSingleItem(@Query("id") Long id);
 
     @GET(PREFIX + "purchase")
-    public Call<Item> purchaseItem(
+    public Call<Purchase> purchaseItem(
             @Query("item") Long id,
             @Header("Authorization") String token
     );

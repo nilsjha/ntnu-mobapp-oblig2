@@ -41,14 +41,23 @@ public class ItemViewModel extends ViewModel {
         Log.d("ITEMMODEL-INFO", "New item " + activeItemLiveData.getValue().getId());
     }
 
-    public void purchaseActiveItem() {
+    public boolean purchaseActiveItem() {
+        boolean executed;
         Item currentItem = this.activeItemLiveData.getValue();
+        setActiveItem(currentItem);
         if (currentItem.getItemPurchase() == null) {
+            executed = true;
             Log.d("ITEMMODEL-INFO","Item purchase for item " + currentItem.getId());
-            itemRepo.purchaseItem(this.getActiveItemLiveData().getValue().getId(), loginRepo.getToken(), item -> setActiveItem(item));
+            itemRepo.purchaseItem(currentItem.getId(), loginRepo.getToken(), purchase -> {
+                if (purchase != null) {
+                    loadActiveItem(currentItem.getId());
+                }
+            });
         } else {
             Log.d("ITEMMODEL-WARN","Item purchase abort, no item id present");
+            executed  = false;
         }
+        return executed;
     }
 
     public LiveData<Item> getActiveItemLiveData() {

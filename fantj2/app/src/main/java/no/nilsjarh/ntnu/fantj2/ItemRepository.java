@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 import java.util.List;
 
 import no.nilsjarh.ntnu.fantj2.model.Item;
+import no.nilsjarh.ntnu.fantj2.model.Purchase;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -64,11 +65,12 @@ public class ItemRepository {
         serviceApi.getSingleItem(id).enqueue(new Callback<Item>() {
             @Override
             public void onResponse(Call<Item> call, Response<Item> response) {
-               if (response.isSuccessful()) {
-                   Log.d("ITEM-INFO:", "Item retrieved OK");
-                   itemCallback.accept(response.body());
-                   };
-               }
+                if (response.isSuccessful()) {
+                    Log.d("ITEM-INFO:", "Item retrieved OK");
+                    itemCallback.accept(response.body());
+                }
+                ;
+            }
 
             @Override
             public void onFailure(Call<Item> call, Throwable t) {
@@ -78,22 +80,23 @@ public class ItemRepository {
             }
         });
     }
-    public void purchaseItem(Long id, String token, Consumer<Item> itemCallback) {
-        serviceApi.purchaseItem(id, token).enqueue(new Callback<Item>() {
+
+    public void purchaseItem(Long id, String token, Consumer<Purchase> purchaseCallback) {
+        serviceApi.purchaseItem(id, token).enqueue(new Callback<Purchase>() {
             @Override
-            public void onResponse(Call<Item> call, Response<Item> response) {
+            public void onResponse(Call<Purchase> call, Response<Purchase> response) {
                 Log.d("PURCHASE-INFO:", "OK");
-                itemCallback.accept(response.body());
+                purchaseCallback.accept(response.body());
 
             }
 
             @Override
-            public void onFailure(Call<Item> call, Throwable t) {
+            public void onFailure(Call<Purchase> call, Throwable t) {
                 Log.d("PURCHASE-WARN:", "Failed for item " + id.toString());
-                itemCallback.accept(null);
+                purchaseCallback.accept(null);
 
             }
         });
     }
-
 }
+
