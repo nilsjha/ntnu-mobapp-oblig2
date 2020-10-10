@@ -93,7 +93,7 @@ public class ItemFragment extends Fragment {
                         purchaseContainer.setVisibility(View.VISIBLE);
                     }
                 } else {
-                    sellerMail.setVisibility(View.GONE);
+                    sellerMail.setText(R.string.seller_mail_hidden_placeholder);
                     if (i.getItemPurchase() != null) {
                       itemPrice.setText(getString(R.string.sold_text));
                   }
