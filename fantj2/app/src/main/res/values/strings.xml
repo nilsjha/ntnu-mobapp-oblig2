@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Fant</string>
-    <string name="currency_suffix">kr</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Click the image to login</string>
@@ -17,10 +16,17 @@
 
    <string name="item_title">Imported Goods</string>
     <string name="action_item_purchase">Purchase item</string>
+    <string name="currency_suffix"> kr</string>
     <string name="seller_title">Seller</string>
-    <string name="seller_name">Jan Banan</string>
-    <string name="seller_email">asdasdfgasfd@asdasdd.no</string>
-    <string name="item_description">
+    <string name="seller_name_placeholder">Private seller</string>
+    <string name="seller_email_placeholder"></string>
+    <string name="sold_text">SOLD</string>
+
+
+
+    <string name="mock_seller_name">Jan Banan</string>
+    <string name="mock_seller_email">asdasdfgasfd@asdasdd.no</string>
+    <string name="mock_item_description">
         asdfsadfasd saf dsaf saf asdf sadf sdaf asdf daf sadf asdaf
         sad fsaf dsaf dsaf ghfsg sadfadsf asdfasdf asdfasdf safasdf sadf dasf  asdfadsf asdf asdf
         sad fsaf dsaf dsaf ghfsg sadfadsf asdfasdf asdfasdf safasdf sadf dasf  asdfadsf asdf asdf

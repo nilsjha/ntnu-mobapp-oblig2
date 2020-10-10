@@ -5,11 +5,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -44,8 +46,19 @@ public class ItemFragment extends Fragment {
         final TextView sellerName = root.findViewById(R.id.seller_name);
         final TextView sellerMail = root.findViewById(R.id.seller_mail);
         final ImageView itemPoster = root.findViewById(R.id.item_image);
+        final ConstraintLayout purchaseContainer = root.findViewById(R.id.purchase_container);
+        final Button purchaseButton = root.findViewById(R.id.button_purchase);
         final int itemPosterWidth = 480;
 
+        purchaseContainer.setVisibility(View.GONE);
+
+
+        purchaseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                itemViewModel.purchaseActiveItem();
+            }
+        });
 
         itemViewModel.getActiveItemLiveData().observe(getViewLifecycleOwner(), new Observer<Item>() {
             @Override
@@ -54,14 +67,14 @@ public class ItemFragment extends Fragment {
                 i = itemViewModel.getActiveItemLiveData().getValue();
                 Log.d("ITEM-INFO", "Item "+ i.getId() +" " + i.getItemTitle() + "changed.");
                 itemTitle.setText(i.getItemTitle());
-                itemPrice.setText(i.getItemPrice().toString() + " " + getString(R.string.currency_suffix));
                 itemDescr.setText(i.getItemDescription());
+                itemPrice.setText(i.getItemPrice().toString());
 
                 User seller = i.getItemSeller();
-                String SellerNameTxt = seller.getFullName().equals("nullnull") ? "Private seller" : seller.getFullName();
+                String SellerNameTxt = seller.getFullName().equals("") ? getString(R.string.seller_name_placeholder) : seller.getFullName();
                 sellerName.setText(SellerNameTxt);
                 // FIXME: sellerMail.setText(seller.getUserEmail());
-                sellerMail.setText("[hidden email]");
+                sellerMail.setText(seller.getUserEmail());
 
                 if (i.getAttachmentList() != null) {
                     if (i.getAttachmentList().size() > 0) {
@@ -70,6 +83,17 @@ public class ItemFragment extends Fragment {
                                 RestService.DOMAIN + MarketplaceApi.PREFIX + "image/"
                                         + attachment.getId()+"?"+ itemPosterWidth).into(itemPoster);
                     }
+                }
+
+                if (i.getItemPurchase() == null) {
+                    if (itemViewModel.getLoggedInState()) {
+                        purchaseContainer.setVisibility(View.VISIBLE);
+                    } else {
+                        purchaseContainer.setVisibility(View.GONE);
+                    }
+                 } else {
+                    itemPrice.setText(getString(R.string.sold_text));
+                    sellerMail.setVisibility(View.GONE);
                 }
             }
         });

@@ -3,6 +3,7 @@ package no.nilsjarh.ntnu.fantj2.ui.item;
 import android.graphics.Bitmap;
 import android.util.Log;
 
+import androidx.core.util.Consumer;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -40,13 +41,23 @@ public class ItemViewModel extends ViewModel {
         Log.d("ITEMMODEL-INFO", "New item " + activeItemLiveData.getValue().getId());
     }
 
-    public void purchaseItem(Item item) {
-        itemRepo.purchaseItem(item.getId(), loginRepo.getToken());
+    public void purchaseActiveItem() {
+        Item currentItem = this.activeItemLiveData.getValue();
+        if (currentItem.getItemPurchase() == null) {
+            Log.d("ITEMMODEL-INFO","Item purchase for item " + currentItem.getId());
+            itemRepo.purchaseItem(this.getActiveItemLiveData().getValue().getId(), loginRepo.getToken(), item -> setActiveItem(item));
+        } else {
+            Log.d("ITEMMODEL-WARN","Item purchase abort, no item id present");
+        }
     }
 
     public LiveData<Item> getActiveItemLiveData() {
         Log.d("ITEMMODEL-INFO","Returned observable LiveData");
         return activeItemLiveData;
+    }
+
+    public Boolean getLoggedInState() {
+        return loginRepo.isLoggedIn();
     }
 
 }

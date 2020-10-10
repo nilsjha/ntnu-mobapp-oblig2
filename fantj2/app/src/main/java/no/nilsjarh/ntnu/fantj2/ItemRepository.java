@@ -78,15 +78,19 @@ public class ItemRepository {
             }
         });
     }
-    public void purchaseItem(Long id, String token) {
+    public void purchaseItem(Long id, String token, Consumer<Item> itemCallback) {
         serviceApi.purchaseItem(id, token).enqueue(new Callback<Item>() {
             @Override
             public void onResponse(Call<Item> call, Response<Item> response) {
+                Log.d("PURCHASE-INFO:", "OK");
+                itemCallback.accept(response.body());
 
             }
 
             @Override
             public void onFailure(Call<Item> call, Throwable t) {
+                Log.d("PURCHASE-WARN:", "Failed for item " + id.toString());
+                itemCallback.accept(null);
 
             }
         });
