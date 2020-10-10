@@ -58,7 +58,7 @@ public class ItemFragment extends Fragment {
                 itemDescr.setText(i.getItemDescription());
 
                 User seller = i.getItemSeller();
-                String SellerNameTxt = seller.getFullName().isEmpty() ? "Private seller" : seller.getFullName();
+                String SellerNameTxt = seller.getFullName().equals("nullnull") ? "Private seller" : seller.getFullName();
                 sellerName.setText(SellerNameTxt);
                 sellerMail.setText(seller.getUserEmail());
 
