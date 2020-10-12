@@ -29,6 +29,10 @@ public class ItemViewModel extends ViewModel {
         }
     }
 
+    /**
+     *  Retrieves a single item element from the server and stores it in the ViewModel
+     * @param id Id for the Item to retrieve
+     */
     public void loadActiveItem(Long id) {
             itemRepo.getSingleItem(id, (Item receivedItem)-> {
                 if (receivedItem != null) {
@@ -38,7 +42,7 @@ public class ItemViewModel extends ViewModel {
     }
 
     public void setActiveItem(Item item) {
-        this.activeItemLiveData.setValue(item);
+        activeItemLiveData.setValue(item);
         Log.d("ITEMMODEL-INFO","Item was overwritten and flagged");
         Log.d("ITEMMODEL-INFO", "New item " + activeItemLiveData.getValue().getId());
     }

@@ -14,14 +14,13 @@
     <string name="thumbnail_item_placeholder">Thumbnail of item</string>
     <string name="image_item_placeholder">Image of item for sale</string>
 
-   <string name="item_title">Imported Goods</string>
+    <string name="item_title">Imported Goods</string>
     <string name="action_item_purchase">Purchase item</string>
     <string name="currency_suffix"> kr</string>
     <string name="seller_title">Seller</string>
     <string name="seller_name_placeholder">Private seller</string>
     <string name="seller_email_placeholder"></string>
     <string name="sold_text">SOLD</string>
-
 
 
     <string name="mock_seller_name">Jan Banan</string>
@@ -53,4 +52,6 @@
     <string name="message_purchase_success">Success!</string>
     <string name="message_purchase_failed_invaliditem">Invalid item selected, please restart app</string>
     <string name="message_purchase_failed_purchasedbefore">Sorry, the item was already purchased</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

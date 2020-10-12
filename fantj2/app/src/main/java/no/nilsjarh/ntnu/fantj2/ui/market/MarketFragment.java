@@ -40,7 +40,7 @@ public class MarketFragment extends Fragment {
         marketViewAdapter = new MarketViewAdapter(new ArrayList<Item>(), new MarketViewAdapter.RecyclerViewClickListener() {
             @Override
             public void onClickItem(Item i) {
-                Toast.makeText(getContext(), "Loading item " + i.getItemTitle(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "Loading item " + i.getItemTitle(), Toast.LENGTH_SHORT).show();
                 elementInViewModel.setActiveItem(i);
                 //elementInViewModel.downloadItemById(i.getId());
                 NavController nav = NavHostFragment.findNavController(getParentFragment());
