@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_nav_market_to_nav_item"
             app:destination="@id/nav_item" />
+        <action
+            android:id="@+id/action_nav_market_to_createItemFragment"
+            app:destination="@id/nav_create" />
     </fragment>
 
     <fragment
@@ -38,6 +41,15 @@
         android:id="@+id/nav_login"
         android:name="no.nilsjarh.ntnu.fantj2.ui.login.LoginFragment"
         android:label="Login"
-        tools:layout="@layout/fragment_item" />
+        tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/nav_create"
+        android:name="no.nilsjarh.ntnu.fantj2.ui.item.createItemFragment"
+        android:label="fragment_create_item"
+        tools:layout="@layout/fragment_create_item" >
+        <action
+            android:id="@+id/action_nav_create_to_nav_item"
+            app:destination="@id/nav_item" />
+    </fragment>
 
 </navigation>
