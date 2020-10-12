@@ -33,7 +33,7 @@
 
     <EditText
         android:id="@+id/item_create_description"
-        android:layout_width="328dp"
+        android:layout_width="320dp"
         android:layout_marginBottom="16dp"
         android:contentDescription="The description of the item to be added"
         android:ems="10"
