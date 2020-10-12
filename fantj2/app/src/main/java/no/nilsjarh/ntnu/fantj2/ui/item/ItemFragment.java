@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 
 import no.nilsjarh.ntnu.fantj2.MarketplaceApi;
@@ -53,12 +54,23 @@ public class ItemFragment extends Fragment {
         purchaseContainer.setVisibility(View.GONE);
 
 
+        /**
+         *  Listen for clicks on purchase button, then do purchase and display result in a snackbar
+         */
         purchaseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(itemViewModel.purchaseActiveItem()) {
-                    purchaseButton.setEnabled(false);
-                };
+                Snackbar.make(view, R.string.message_purchase_wait, Snackbar.LENGTH_LONG).setAction("Purchase", null).show();;
+                itemViewModel.purchaseActiveItem(success -> {
+                    if (success.equals(0)) {
+                        purchaseButton.setEnabled(false);
+                        Snackbar.make(view, R.string.message_purchase_success, Snackbar.LENGTH_LONG).setAction("Purchase", null).show();
+                    } else if (success.equals(1)){
+                        Snackbar.make(view, R.string.message_purchase_failed_invaliditem, Snackbar.LENGTH_LONG).setAction("Purchase", null).show();;
+                    } else if (success.equals(2)) {
+                        Snackbar.make(view, R.string.message_purchase_failed_purchasedbefore, Snackbar.LENGTH_LONG).setAction("Purchase", null).show();;
+                    }
+                });
             }
         });
 
@@ -92,7 +104,6 @@ public class ItemFragment extends Fragment {
                     if (i.getItemPurchase() == null) {
                         purchaseContainer.setVisibility(View.VISIBLE);
                     }
-                    sellerMail.setText("<hidden>");
                 } else {
                     sellerMail.setText(R.string.seller_mail_hidden_placeholder);
                   }

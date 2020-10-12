@@ -36,5 +36,5 @@
         android:layout_marginBottom="675dp"
         app:layout_constraintBottom_toBottomOf="@+id/recyclerview_market"
         app:layout_constraintEnd_toEndOf="@+id/recyclerview_market"
-        app:srcCompat="@android:drawable/ic_dialog_map"/>
+        android:src="@drawable/ic_baseline_post_add_24"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

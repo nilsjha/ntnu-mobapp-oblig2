@@ -8,6 +8,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import no.nilsjarh.ntnu.fantj2.ItemRepository;
 import no.nilsjarh.ntnu.fantj2.LoginRepository;
 import no.nilsjarh.ntnu.fantj2.model.Attachment;
@@ -41,23 +43,31 @@ public class ItemViewModel extends ViewModel {
         Log.d("ITEMMODEL-INFO", "New item " + activeItemLiveData.getValue().getId());
     }
 
-    public boolean purchaseActiveItem() {
-        boolean executed;
+    /**
+     * Sends a request to the server to purchase the item present in the view model.
+     * Returns via callback an exit code for status. 0 = OK, 1 = ABORT, 2 = SERVER REJECT
+     * @param purchaseCallbackResult
+     */
+    public void purchaseActiveItem(Consumer<Integer> purchaseCallbackResult) {
         Item currentItem = this.activeItemLiveData.getValue();
         setActiveItem(currentItem);
         if (currentItem.getItemPurchase() == null) {
-            executed = true;
             Log.d("ITEMMODEL-INFO","Item purchase for item " + currentItem.getId());
             itemRepo.purchaseItem(currentItem.getId(), loginRepo.getToken(), purchase -> {
                 if (purchase != null) {
                     loadActiveItem(currentItem.getId());
+                    // Exit 0: Server executed and accepted purchase
+                    purchaseCallbackResult.accept(0);
+                } else {
+                    // Exit 2: Server rejected purchase
+                    purchaseCallbackResult.accept(2);
                 }
             });
         } else {
             Log.d("ITEMMODEL-WARN","Item purchase abort, no item id present");
-            executed  = false;
+            // Exit 1: Aborted purchase, due to no defined item in UI
+            purchaseCallbackResult.accept(1);
         }
-        return executed;
     }
 
     public LiveData<Item> getActiveItemLiveData() {

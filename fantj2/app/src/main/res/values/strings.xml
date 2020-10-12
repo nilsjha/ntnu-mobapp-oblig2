@@ -49,4 +49,8 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="seller_mail_hidden_placeholder">Login to display seller contact details</string>
+    <string name="message_purchase_wait">Please hold on....</string>
+    <string name="message_purchase_success">Success!</string>
+    <string name="message_purchase_failed_invaliditem">Invalid item selected, please restart app</string>
+    <string name="message_purchase_failed_purchasedbefore">Sorry, the item was already purchased</string>
 </resources>
