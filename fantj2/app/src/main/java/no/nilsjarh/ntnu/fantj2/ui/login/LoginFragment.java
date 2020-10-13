@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -29,7 +31,14 @@ import no.nilsjarh.ntnu.fantj2.R;
 
 public class LoginFragment extends Fragment {
 
+    private NavController navController;
     private LoginViewModel loginViewModel;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.navController = NavHostFragment.findNavController(getParentFragment());
+    }
 
     @Nullable
     @Override
@@ -129,12 +138,14 @@ public class LoginFragment extends Fragment {
         // TODO : initiate successful logged in experience
         if (getContext() != null && getContext().getApplicationContext() != null) {
             Toast.makeText(getContext().getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
+
+            Activity main = (MainActivity)getActivity();
+            TextView navMainText = main.findViewById(R.id.nav_user_name);
+            TextView navUnderText = main.findViewById(R.id.nav_user_mail);
+            navMainText.setText("Welcome " + model.getDisplayName() + "!");
+            navUnderText.setText(model.getDisplayMail());
+            navController.navigate(R.id.action_nav_login_to_nav_market);
         }
-        Activity main = (MainActivity)getActivity();
-        TextView navMainText = main.findViewById(R.id.nav_user_name);
-        TextView navUnderText = main.findViewById(R.id.nav_user_mail);
-        navMainText.setText("Welcome " + model.getDisplayName() + "!");
-        navUnderText.setText(model.getDisplayMail());
 
 
     }

@@ -1,5 +1,7 @@
 package no.nilsjarh.ntnu.fantj2;
 
+import androidx.annotation.Nullable;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -45,9 +47,9 @@ public interface MarketplaceApi {
     public Call<Item> updateItem(
             @Query("id") Long id,
             @Header("Authorization") String token,
-            @Field("title") String title,
-            @Field("price") BigDecimal price,
-            @Field("description") String description
+            @Nullable@Field("title") String title,
+            @Nullable@Field("price") BigDecimal price,
+            @Nullable@Field("description") String description
     );
 
     @Multipart
