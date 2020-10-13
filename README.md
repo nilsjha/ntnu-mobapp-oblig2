@@ -4,3 +4,4 @@ A front-end Android application written with Java. Currently it is configured to
 ### To build
 1. Open Android Studio and import it as a gradle project.
 1. The app should build & run as long as the API server is functioning.
+1. The UI is simply made, but it should handle most errrorus cases.

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.item.createItemFragment">
+
+    <EditText
+        android:id="@+id/item_create_title"
+        android:layout_width="160dp"
+        android:layout_height="46dp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="The name of the item to be added"
+        android:ems="10"
+        android:hint="Name"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/item_create_description"
+        app:layout_constraintStart_toStartOf="@+id/item_create_description" />
+
+    <EditText
+        android:id="@+id/item_create_price"
+        android:layout_width="100dp"
+        android:layout_height="46dp"
+        android:contentDescription="The price of the item to be added"
+        android:ems="10"
+        android:hint="Price"
+        android:inputType="textPersonName"
+        android:textAlignment="textEnd"
+        app:layout_constraintBottom_toBottomOf="@+id/item_create_title"
+        app:layout_constraintEnd_toEndOf="@+id/item_create_description" />
+
+    <EditText
+        android:id="@+id/item_create_description"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="The description of the item to be added"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="Description"
+        android:inputType="textMultiLine"
+        app:layout_constraintBottom_toTopOf="@id/item_create_button_ok"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/item_create_button_ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:contentDescription="Press this button to create the specified item"
+        android:text="Add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/item_create_description"
+        app:layout_constraintStart_toEndOf="@id/item_create_button_cancel" />
+
+
+    <Button
+        android:id="@+id/item_create_button_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:contentDescription="Press this button to abort the creation of the item"
+        android:text="Cancel"
+        app:layout_constraintEnd_toStartOf="@id/item_create_button_ok"
+        app:layout_constraintStart_toEndOf="@+id/item_create_addphoto"
+        app:layout_constraintTop_toTopOf="@+id/item_create_button_ok" />
+
+    <ImageButton
+        android:id="@+id/item_create_addphoto"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginEnd="32dp"
+        android:contentDescription="Press this button to capture a picture to add to the item"
+        android:src="@drawable/ic_menu_camera"
+        app:layout_constraintBottom_toBottomOf="@+id/item_create_button_cancel"
+        app:layout_constraintEnd_toStartOf="@id/item_create_button_cancel"
+        app:layout_constraintStart_toStartOf="@+id/item_create_description"
+        app:layout_constraintTop_toTopOf="@+id/item_create_button_cancel" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

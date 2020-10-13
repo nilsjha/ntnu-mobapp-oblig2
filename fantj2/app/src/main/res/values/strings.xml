@@ -1,9 +1,8 @@
 <resources>
     <string name="app_name">Fant</string>
-    <string name="currency_suffix">kr</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Click the image to login</string>
+    <string name="nav_header_title">Not logged in</string>
     <string name="nav_header_subtitle">Login to access more great features!</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
@@ -11,16 +10,24 @@
     <string name="menu_home">Home</string>
     <string name="menu_market">Marketplace</string>
     <string name="menu_item">Item</string>
+    <string name="menu_create">Create item</string>
+    <string name="menu_login">Login</string>
 
     <string name="thumbnail_item_placeholder">Thumbnail of item</string>
     <string name="image_item_placeholder">Image of item for sale</string>
 
-   <string name="item_title">Imported Goods</string>
+    <string name="item_title">Imported Goods</string>
     <string name="action_item_purchase">Purchase item</string>
+    <string name="currency_suffix"> kr</string>
     <string name="seller_title">Seller</string>
-    <string name="seller_name">Jan Banan</string>
-    <string name="seller_email">asdasdfgasfd@asdasdd.no</string>
-    <string name="item_description">
+    <string name="seller_name_placeholder">Private seller</string>
+    <string name="seller_email_placeholder"></string>
+    <string name="sold_text">SOLD</string>
+
+
+    <string name="mock_seller_name">Jan Banan</string>
+    <string name="mock_seller_email">asdasdfgasfd@asdasdd.no</string>
+    <string name="mock_item_description">
         asdfsadfasd saf dsaf saf asdf sadf sdaf asdf daf sadf asdaf
         sad fsaf dsaf dsaf ghfsg sadfadsf asdfasdf asdfasdf safasdf sadf dasf  asdfadsf asdf asdf
         sad fsaf dsaf dsaf ghfsg sadfadsf asdfasdf asdfasdf safasdf sadf dasf  asdfadsf asdf asdf
@@ -30,6 +37,7 @@
         sad fsaf dsaf dsaf ghfsg sadfadsf asdfasdf asdfasdf safasdf sadf dasf  asdfadsf asdf asdf
         sad fsaf dsaf dsaf ghfsg sadfadsf asdfasdf asdfasdf safasdf sadf dasf  asdfadsf asdf asdf
         sad fsaf dsaf dsaf ghfsg sadfadsf asdfasdf asdfasdf safasdf sadf dasf  asdfadsf asdf asdf
+        Og så slutten
     </string>
 
     <string name="title_activity_login">LoginActivity</string>
@@ -41,4 +49,11 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="seller_mail_hidden_placeholder">Login to display seller contact details</string>
+    <string name="message_purchase_wait">Please hold on....</string>
+    <string name="message_purchase_success">Success!</string>
+    <string name="message_purchase_failed_invaliditem">Invalid item selected, please restart app</string>
+    <string name="message_purchase_failed_purchasedbefore">Sorry, the item was already purchased</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

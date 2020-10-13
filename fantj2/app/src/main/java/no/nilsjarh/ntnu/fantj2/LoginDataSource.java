@@ -8,7 +8,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
+import java.io.IOException;
 import java.util.function.Consumer;
+
 
 /**
  * Class that handles authentication w/ login credentials and retrieves user information.
@@ -17,46 +19,62 @@ public class LoginDataSource {
 
     public void login(String username, String password, Consumer<Result<LoggedInUser>> resultCallback) {
 
-        Retrofit rest = RestService.getRetrofitClient(false);
+        Retrofit retrofitClient = RestService.getRetrofitClient(false);
 
         try {
             // TODO: handle loggedInUser authentication
-            AuthApi authService = rest.create(AuthApi.class);
+            AuthApi authService = retrofitClient.create(AuthApi.class);
+            MarketplaceApi marketService = retrofitClient.create(MarketplaceApi.class);
             Call<Void> authCall = authService.doLogin(username, password);
-            Log.d("AUTH", "DATASOURCE BEFORE EBNQ");
+            Log.d("AUTH-INFO", "Starting auth");
                 authCall.enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> tokenResponse) {
-                        Log.d("AUTH", "GOT USER DATA");
 
                         if (tokenResponse.isSuccessful()) {
                             String token = tokenResponse.headers().get("Authorization");
-                            System.err.println("OK LOGIN AUTH" + token);
                             Call<LoggedInUser> userCall = authService.getCurrentUser(token);
                             userCall.enqueue(new Callback<LoggedInUser>() {
                                 @Override
                                 public void onResponse(Call<LoggedInUser> call, Response<LoggedInUser> response) {
-                                    LoggedInUser user = new LoggedInUser();
-                                    user = response.body();
+                                    LoggedInUser user = response.body();
                                     user.setUserToken(token);
-                                    user.setUserName(username);
+                                    user.setUserEmail(username);
+                                    Log.d("AUTH-INFO", "Auth OK for " + username);
                                     resultCallback.accept(new Result.Success<>(user));
                                 }
 
                                 @Override
                                 public void onFailure(Call<LoggedInUser> call, Throwable t) {
-
+                                    LoggedInUser user = new LoggedInUser();
+                                    user.setUserToken(token);
+                                    user.setUserEmail(username);
+                                    Log.d("AUTH-WARN", "Auth OK for " + username
+                                            + ", but failed to retreive user data from server." +
+                                            "Some userdata might not be instantiated"
+                                    );
+                                    resultCallback.accept(new Result.Success<>(user));
                                 }
                             });
 
+                        } else {
+                            if (tokenResponse.code() == 401) {
+                                Log.d("AUTH-INFO", "Auth failed for " + username);
+                                resultCallback.accept(new Result.Error(
+                                       new Exception("Wrong username or password")));
+                            } else {
+                                Log.d("AUTH-ERROR", "Unknown server error");
+                                resultCallback.accept(new Result.Error(
+                                        new Exception("Unknown error")));
+                            }
                         }
                     }
 
                     @Override
                     public void onFailure(Call<Void> call, Throwable t) {
-                        Log.d("AUTH", call.toString());
-                        Log.d("AUTH", t.getMessage());
-                        Log.d("AUTH", "FAILED HARD");
+                        resultCallback.accept(new Result.Error(new IOException()));
+                        Log.d("AUTH-ERROR", "Unable to communicate with server");
+                        Log.d("AUTH-ERROR", t.getMessage());
                     }
                 });
 

@@ -43,6 +43,9 @@ public class LoginRepository {
         dataSource.logout();
     }
 
+    public String getToken() {
+        return instance.user.getUserToken();
+    }
     private void setLoggedInUser(LoggedInUser user) {
         this.user = user;
         // If user credentials will be cached in local storage, it is recommended it be encrypted
@@ -53,8 +56,8 @@ public class LoginRepository {
         // handle login
 
         dataSource.login(username, password, (Result<LoggedInUser> loggedInUserResult)->{
-            Log.d("AUTH", "GOT RESULT FROM DATASOURCE");
-            Log.d("AUTH", loggedInUserResult.toString());
+            Log.d("AUTH-INFO", "Got result from LoginDataSource");
+            Log.d("AUTH-INFO", loggedInUserResult.toString());
             if (loggedInUserResult instanceof Result.Success) {
                 setLoggedInUser(((Result.Success<LoggedInUser>) loggedInUserResult).getData());
             }
