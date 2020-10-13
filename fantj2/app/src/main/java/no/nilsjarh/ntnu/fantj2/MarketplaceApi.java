@@ -43,7 +43,7 @@ public interface MarketplaceApi {
     @FormUrlEncoded
     @POST(PREFIX + "update")
     public Call<Item> updateItem(
-            @Query("item") Long id,
+            @Query("id") Long id,
             @Header("Authorization") String token,
             @Field("title") String title,
             @Field("price") BigDecimal price,
