@@ -1,6 +1,7 @@
 package no.nilsjarh.ntnu.fantj2.ui.item;
 
 import android.graphics.Bitmap;
+import android.security.keystore.UserNotAuthenticatedException;
 import android.util.Log;
 
 import androidx.core.util.Consumer;
@@ -50,6 +51,16 @@ public class ItemViewModel extends ViewModel {
         Log.d("ITEMMODEL-INFO", "New item " + activeItemLiveData.getValue().getId());
     }
 
+    /**
+     *  Send a request to the server to create a new item. Only works if user is logged in
+     *  The calling object might implement error handeling. Result<Item> is returned of
+     *  result.Success if OK (encapuslates the item inside). A result.Error is returned with NULL
+     *  if server rejected or an Exception if an error occured on the client side.
+     *  IOException is returned if any problems with network.
+     * @param title title of the item to create
+     * @param priceNok price of the item to create.
+     * @param createdItem The callback of the result (see responses above)
+     */
     public void createNewItem(String title, BigDecimal priceNok, Consumer<Result<Item>> createdItem) {
         if (loginRepo.isLoggedIn()) {
             itemRepo.createItem(loginRepo.getToken(), title, priceNok, createdItemResult -> {
@@ -59,6 +70,24 @@ public class ItemViewModel extends ViewModel {
                 }
                 createdItem.accept(createdItemResult);
             });
+        } else {
+            createdItem.accept(new Result.Error(new UserNotAuthenticatedException()));
+        }
+    }
+
+    public void setDescriptionExistingItem(Long id, String description, Consumer <Item> updatedItem) {
+        if (loginRepo.isLoggedIn()) {
+            itemRepo.updateItem(id,loginRepo.getToken(),null,description,null,updatedItemResult ->{
+                if (updatedItemResult instanceof Result.Success) {
+                    Item i = (Item) ((Result.Success) updatedItemResult).getData();
+                    this.setActiveItem(i);
+                    updatedItem.accept(i);
+                } else {
+                    updatedItem.accept(null);
+                }
+            });
+        } else {
+            updatedItem.accept(null);
         }
     }
 

@@ -79,20 +79,37 @@ public class createItemFragment extends Fragment {
                 Snackbar status = Snackbar.make(root,"",Snackbar.LENGTH_LONG);
                 String titleString = title.getText().toString();
                 String priceString = price.getText().toString();
+                String descrString = description.getText().toString();
                 if (validateInput(titleString,priceString)) {
                     // VALID INPUT
                     status.setText("Please hold on while creating the item....").setDuration(Snackbar.LENGTH_INDEFINITE).show();
+
+                    InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 
                     itemViewModel.createNewItem(title.getText().toString(), new BigDecimal(price.getText().toString()), createdItem -> {
                         status.setDuration(BaseTransientBottomBar.LENGTH_LONG);
                         if (createdItem instanceof Result.Success) {
                             // Item created, view model updated with new item
-                            status.setDuration(BaseTransientBottomBar.LENGTH_SHORT);
-                            status.setTextColor(Color.GREEN).setText("Success").show();
-                            InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                            inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                            if (!(descrString.isEmpty())) {
+                                Item createOk = (Item) ((Result.Success) createdItem).getData();
+                                itemViewModel.setDescriptionExistingItem(createOk.getId(),descrString,item ->{
+                                    if (item != null) {
+                                        status.setDuration(BaseTransientBottomBar.LENGTH_SHORT);
+                                        status.setTextColor(Color.GREEN).setText("Success").show();
 
-                            navController.navigate(R.id.action_nav_create_to_nav_item);
+                                    } else {
+                                        status.setDuration(Snackbar.LENGTH_LONG);
+                                        status.setText("Created item " + createOk.getItemTitle() + ", but unable to set description").setTextColor(Color.YELLOW).show();
+                                    }
+                                    navController.navigate(R.id.action_nav_create_to_nav_item);
+                                });
+                            } else {
+                                status.setDuration(BaseTransientBottomBar.LENGTH_SHORT);
+                                status.setTextColor(Color.GREEN).setText("Success").show();
+
+                                navController.navigate(R.id.action_nav_create_to_nav_item);
+                            }
                         } else {
                             Exception error = ((Result.Error) createdItem).getError();
                             if (error == null) {
