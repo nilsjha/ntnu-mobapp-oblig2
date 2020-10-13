@@ -64,7 +64,7 @@ public class ItemFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Snackbar status = Snackbar.make(view,R.string.message_purchase_wait, Snackbar.LENGTH_INDEFINITE);
-                Snackbar.make(view, R.string.message_purchase_wait, Snackbar.LENGTH_INDEFINITE).setAction("Purchase", null).show();;
+                status.show();
                 itemViewModel.purchaseActiveItem(success -> {
                     status.setDuration(BaseTransientBottomBar.LENGTH_LONG).show();
                     if (success.equals(0)) {

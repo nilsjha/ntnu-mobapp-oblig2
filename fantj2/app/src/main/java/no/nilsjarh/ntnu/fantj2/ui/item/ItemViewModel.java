@@ -10,8 +10,11 @@ import androidx.lifecycle.ViewModel;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import java.math.BigDecimal;
+
 import no.nilsjarh.ntnu.fantj2.ItemRepository;
 import no.nilsjarh.ntnu.fantj2.LoginRepository;
+import no.nilsjarh.ntnu.fantj2.Result;
 import no.nilsjarh.ntnu.fantj2.model.Attachment;
 import no.nilsjarh.ntnu.fantj2.model.Item;
 
@@ -45,6 +48,18 @@ public class ItemViewModel extends ViewModel {
         activeItemLiveData.setValue(item);
         Log.d("ITEMMODEL-INFO","Item was overwritten and flagged");
         Log.d("ITEMMODEL-INFO", "New item " + activeItemLiveData.getValue().getId());
+    }
+
+    public void createNewItem(String title, BigDecimal priceNok, Consumer<Result<Item>> createdItem) {
+        if (loginRepo.isLoggedIn()) {
+            itemRepo.createItem(loginRepo.getToken(), title, priceNok, createdItemResult -> {
+                if(createdItemResult instanceof Result.Success) {
+                    Item returnedItem = (Item) ((Result.Success) createdItemResult).getData();
+                    this.setActiveItem(returnedItem);
+                }
+                createdItem.accept(createdItemResult);
+            });
+        }
     }
 
     /**
