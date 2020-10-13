@@ -21,11 +21,15 @@ import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import no.nilsjarh.ntnu.fantj2.MarketplaceApi;
 import no.nilsjarh.ntnu.fantj2.R;
 import no.nilsjarh.ntnu.fantj2.RestService;
 import no.nilsjarh.ntnu.fantj2.model.Attachment;
 import no.nilsjarh.ntnu.fantj2.model.Item;
+import no.nilsjarh.ntnu.fantj2.model.Purchase;
 import no.nilsjarh.ntnu.fantj2.model.User;
 
 public class ItemFragment extends Fragment {
@@ -109,14 +113,48 @@ public class ItemFragment extends Fragment {
                 }
 
                 if (itemViewModel.getLoggedInState()) {
-                    if (i.getItemPurchase() == null) {
+                    Purchase currentPurchase = i.getItemPurchase();
+                    if (currentPurchase == null) {
                         purchaseContainer.setVisibility(View.VISIBLE);
+                        // SELLER DISPLAYS OWN ITEM
+                        if (i.getItemSeller().getUserId().equals(itemViewModel.getLoggedInUserId())) {
+                            purchaseContainer.setVisibility(View.VISIBLE);
+                            purchaseButton.setBackgroundColor(Color.BLACK);
+                            purchaseButton.setTextColor(Color.WHITE);
+                            purchaseButton.setEnabled(false);
+                            purchaseButton.setText("Cannot purchase own item");
+                        }
+                    } else {
+                        // BUYER DISPLAYS PURCHASED ITEM
+                        if (currentPurchase.getBuyerUser().getUserId().equals(itemViewModel.getLoggedInUserId())) {
+                            DateFormat timeDayFormat = new SimpleDateFormat("dd/MM/yyyy");
+                            String purchaseDate = timeDayFormat.format(currentPurchase.getPurchaseDate());
+
+                            purchaseContainer.setVisibility(View.VISIBLE);
+                            purchaseButton.setBackgroundColor(Color.BLACK);
+                            purchaseButton.setTextColor(Color.WHITE);
+                            purchaseButton.setEnabled(false);
+                            purchaseButton.setText("Purchased on " + purchaseDate);
+                        } else if (i.getItemSeller().getUserId().equals(itemViewModel.getLoggedInUserId())) {
+                            DateFormat timeDayFormat = new SimpleDateFormat("dd/MM/yyyy");
+                            String purchaseDate = timeDayFormat.format(currentPurchase.getPurchaseDate());
+
+                            purchaseContainer.setVisibility(View.VISIBLE);
+                            purchaseButton.setBackgroundColor(Color.BLACK);
+                            purchaseButton.setTextColor(Color.WHITE);
+                            purchaseButton.setEnabled(false);
+                            purchaseButton.setText("Sold on " + purchaseDate);
+                            itemPrice.setText("Sold to " + currentPurchase.getBuyerUser().getUserEmail());
+
+                        } else {
+                            itemPrice.setText(getString(R.string.sold_text));
+                        }
                     }
                 } else {
                     sellerMail.setText(R.string.seller_mail_hidden_placeholder);
-                  }
-                if (i.getItemPurchase() != null) {
-                itemPrice.setText(getString(R.string.sold_text));
+                    if (i.getItemPurchase() != null) {
+                        itemPrice.setText(getString(R.string.sold_text));
+                    }
                 }
             }
         });

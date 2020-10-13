@@ -134,6 +134,11 @@ public class ItemViewModel extends ViewModel {
         return loginRepo.isLoggedIn();
     }
 
+    public String getLoggedInUserId() {
+        if (getLoggedInState()) return loginRepo.getUserId();
+        return "";
+    }
+
     private boolean verifyOwnerOfItem(Item i, String userId) {
         return i.getItemSeller().getUserId().equals(userId) ? true : false;
     }
