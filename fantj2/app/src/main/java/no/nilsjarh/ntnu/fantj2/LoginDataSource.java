@@ -19,11 +19,12 @@ public class LoginDataSource {
 
     public void login(String username, String password, Consumer<Result<LoggedInUser>> resultCallback) {
 
-        Retrofit rest = RestService.getRetrofitClient(false);
+        Retrofit retrofitClient = RestService.getRetrofitClient(false);
 
         try {
             // TODO: handle loggedInUser authentication
-            AuthApi authService = rest.create(AuthApi.class);
+            AuthApi authService = retrofitClient.create(AuthApi.class);
+            MarketplaceApi marketService = retrofitClient.create(MarketplaceApi.class);
             Call<Void> authCall = authService.doLogin(username, password);
             Log.d("AUTH-INFO", "Starting auth");
                 authCall.enqueue(new Callback<Void>() {

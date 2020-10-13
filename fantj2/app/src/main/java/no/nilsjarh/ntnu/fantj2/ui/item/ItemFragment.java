@@ -87,7 +87,7 @@ public class ItemFragment extends Fragment {
                 Log.d("ITEM-INFO", "Item " + i.getId() + " " + i.getItemTitle() + "changed.");
                 itemTitle.setText(i.getItemTitle());
                 itemDescr.setText(i.getItemDescription());
-                itemPrice.setText(i.getItemPrice().toString());
+                itemPrice.setText(i.getItemPrice().toString() + " " + getString(R.string.currency_suffix));
                 purchaseContainer.setVisibility(View.GONE);
 
                 User seller = i.getItemSeller();

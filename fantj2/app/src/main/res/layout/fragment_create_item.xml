@@ -42,7 +42,8 @@
         android:text="Description"
         app:layout_constraintBottom_toTopOf="@id/item_create_button_ok"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/item_create_button_ok"

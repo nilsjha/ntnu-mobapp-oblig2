@@ -34,18 +34,18 @@
     <fragment
         android:id="@+id/nav_item"
         android:name="no.nilsjarh.ntnu.fantj2.ui.item.ItemFragment"
-        android:label="Items"
+        android:label="@string/menu_item"
         tools:layout="@layout/fragment_item" />
 
     <fragment
         android:id="@+id/nav_login"
         android:name="no.nilsjarh.ntnu.fantj2.ui.login.LoginFragment"
-        android:label="Login"
+        android:label="@string/menu_login"
         tools:layout="@layout/fragment_login" />
     <fragment
         android:id="@+id/nav_create"
         android:name="no.nilsjarh.ntnu.fantj2.ui.item.createItemFragment"
-        android:label="fragment_create_item"
+        android:label="@string/menu_create"
         tools:layout="@layout/fragment_create_item" >
         <action
             android:id="@+id/action_nav_create_to_nav_item"

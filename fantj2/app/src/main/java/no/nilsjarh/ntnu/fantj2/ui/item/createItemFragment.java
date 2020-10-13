@@ -3,10 +3,14 @@ package no.nilsjarh.ntnu.fantj2.ui.item;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 import no.nilsjarh.ntnu.fantj2.R;
 
@@ -19,12 +23,11 @@ public class createItemFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final Boolean ARG_AUTHENTICATED = false;
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private Boolean mAuthenticated;
+    private NavController navController;
 
     public createItemFragment() {
         // Required empty public constructor
@@ -35,25 +38,23 @@ public class createItemFragment extends Fragment {
      * this fragment using the provided parameters.
      *
      * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment RecieptFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static createItemFragment newInstance(String param1, String param2) {
+    public static createItemFragment newInstance(Boolean param1) {
         createItemFragment fragment = new createItemFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putBoolean(String.valueOf(ARG_AUTHENTICATED), param1);
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        this.navController = NavHostFragment.findNavController(getParentFragment());
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mAuthenticated = getArguments().getBoolean(String.valueOf(ARG_AUTHENTICATED));
         }
     }
 
@@ -61,6 +62,23 @@ public class createItemFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_create_item, container, false);
+        View root = inflater.inflate(R.layout.fragment_create_item, container, false);
+
+        final Button cancelBtn = root.findViewById(R.id.item_create_button_cancel);
+        final Button acceptBtn = root.findViewById(R.id.item_create_button_ok);
+        final EditText title = root.findViewById(R.id.item_create_title);
+        final EditText description  = root.findViewById(R.id.item_create_description);
+        final EditText price = root.findViewById(R.id.item_create_price);
+
+
+
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigateUp();
+            }
+        });
+
+        return root;
     }
 }

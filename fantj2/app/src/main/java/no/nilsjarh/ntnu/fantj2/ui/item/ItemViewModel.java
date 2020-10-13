@@ -63,14 +63,14 @@ public class ItemViewModel extends ViewModel {
                     // Exit 0: Server executed and accepted purchase
                     purchaseCallbackResult.accept(0);
                 } else {
-                    // Exit 2: Server rejected purchase
-                    purchaseCallbackResult.accept(2);
+                    // Exit 1: Server rejected purchase
+                    purchaseCallbackResult.accept(1);
                 }
             });
         } else {
             Log.d("ITEMMODEL-WARN","Item purchase abort, no item id present");
-            // Exit 1: Aborted purchase, due to no defined item in UI
-            purchaseCallbackResult.accept(1);
+            // Exit 2: Aborted purchase, due to no defined item in UI
+            purchaseCallbackResult.accept(2);
         }
     }
 

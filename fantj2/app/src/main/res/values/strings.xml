@@ -10,6 +10,8 @@
     <string name="menu_home">Home</string>
     <string name="menu_market">Marketplace</string>
     <string name="menu_item">Item</string>
+    <string name="menu_create">Create item</string>
+    <string name="menu_login">Login</string>
 
     <string name="thumbnail_item_placeholder">Thumbnail of item</string>
     <string name="image_item_placeholder">Image of item for sale</string>
