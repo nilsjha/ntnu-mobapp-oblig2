@@ -35,12 +35,10 @@ public class MarketViewAdapter extends RecyclerView.Adapter<MarketViewAdapter.Vi
     public void onBindViewHolder(@NonNull MarketViewAdapter.ViewHolder holder, int position) {
         Item i = itemList.get(position);
         holder.title.setText(i.getItemTitle());
-        holder.price.setText(i.getItemPrice().toString() + R.string.currency_suffix);
+        holder.price.setText(i.getItemPrice().toString() + " kr");
         holder.bind(i, listener);
 
-        if (i.getItemPurchase() == null) {
-            holder.price.setText(i.getItemPrice().toString());
-        } else {
+        if (i.getItemPurchase() != null) {
             holder.price.setText(R.string.sold_text);
         }
     }
@@ -53,7 +51,11 @@ public class MarketViewAdapter extends RecyclerView.Adapter<MarketViewAdapter.Vi
 
     @Override
     public int getItemCount() {
-        return itemList.size();
+        if (itemList != null) {
+           return itemList.size();
+        } else {
+            return 0;
+        }
     }
 
     public interface RecyclerViewClickListener {

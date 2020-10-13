@@ -16,7 +16,10 @@ public class MarketViewModelFactory implements ViewModelProvider.Factory {
     @SuppressWarnings("unchecked")
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if (modelClass.isAssignableFrom(MarketViewModel.class)) {
-            return (T) new MarketViewModel(ItemRepository.getInstance());
+            return (T) new MarketViewModel(
+                    ItemRepository.getInstance(),
+                    LoginRepository.getInstance(new LoginDataSource())
+            );
         } else {
             throw new IllegalArgumentException("Unknown ViewModel class");
         }
