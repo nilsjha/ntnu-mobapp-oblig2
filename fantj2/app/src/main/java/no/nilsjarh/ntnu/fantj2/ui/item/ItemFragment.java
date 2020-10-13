@@ -74,6 +74,9 @@ public class ItemFragment extends Fragment {
                         status.setText(R.string.message_purchase_failed_invaliditem).setTextColor(Color.RED);
                     } else if (success.equals(2)) {
                         status.setText(R.string.message_purchase_failed_purchasedbefore).setTextColor(Color.RED);
+                    } else if (success.equals(10)) {
+                        status.setText(R.string.message_purchase_failed_already_seller).setTextColor(Color.RED);
+
                     }
                 });
             }

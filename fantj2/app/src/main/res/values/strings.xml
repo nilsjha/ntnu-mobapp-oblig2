@@ -56,4 +56,5 @@
     <string name="message_purchase_failed_purchasedbefore">Sorry, the item was already purchased</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="message_purchase_failed_already_seller">This shall never happen, you cannot purchase items you own</string>
 </resources>

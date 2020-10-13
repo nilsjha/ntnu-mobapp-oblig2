@@ -25,7 +25,6 @@ public class ItemRepository {
     private LoginRepository loginRepository;
     private MarketplaceApi serviceApi;
     private MutableLiveData<List<Item>> mItemsResponseLiveData;
-    private MutableLiveData<Item> mSingleItemResponseLiveData;
 
     public static ItemRepository getInstance() {
         if (ItemRepository == null) {
@@ -89,7 +88,6 @@ public class ItemRepository {
                     Log.d("ITEM-INFO:", "Item retrieved OK");
                     itemCallback.accept(response.body());
                 }
-                ;
             }
 
             @Override
@@ -118,6 +116,7 @@ public class ItemRepository {
             }
         });
     }
+
 
 
     public void createItem(String token, String title, BigDecimal price, Consumer <Result<Item>> createdItemCallback) {
