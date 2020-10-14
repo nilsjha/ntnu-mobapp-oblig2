@@ -6,19 +6,70 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
-    <TextView
-        android:id="@+id/text_home"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/home_button_goto_market"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
+        android:text="@string/main_button_goto_market"
+        app:layout_constraintBottom_toTopOf="@+id/home_button_login_user"
+        app:layout_constraintEnd_toEndOf="@+id/home_button_login_user"
+        app:layout_constraintStart_toStartOf="@+id/home_button_login_user"
+        app:layout_constraintTop_toBottomOf="@+id/text_app_slogan" />
+
+    <Button
+        android:id="@+id/home_button_login_user"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:text="@string/main_button_logon_user"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_app_title" />
+
+    <Button
+        android:id="@+id/home_button_create_item"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/main_button_create_item"
+        app:layout_constraintBottom_toTopOf="@+id/text_app_byline"
+        app:layout_constraintEnd_toEndOf="@+id/home_button_login_user"
+        app:layout_constraintStart_toStartOf="@+id/home_button_login_user"
+        app:layout_constraintTop_toBottomOf="@+id/home_button_login_user"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/text_app_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/application_brand_name"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_app_slogan"
+        android:layout_width="wrap_content"
+        android:layout_height="17dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/application_brand_slogan"
+        app:layout_constraintEnd_toEndOf="@+id/text_app_title"
+        app:layout_constraintStart_toStartOf="@+id/text_app_title"
+        app:layout_constraintTop_toBottomOf="@+id/text_app_title" />
+
+    <TextView
+        android:id="@+id/text_app_byline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:text="@string/devel_byline_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/text_app_title"
+        app:layout_constraintStart_toStartOf="@+id/text_app_title" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

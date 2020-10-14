@@ -6,9 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,7 +23,6 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 import no.nilsjarh.ntnu.fantj2.R;
 import no.nilsjarh.ntnu.fantj2.model.Item;
@@ -76,7 +73,7 @@ public class MarketFragment extends Fragment {
             createItemfab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    navController.navigate(R.id.action_nav_market_to_createItemFragment);
+                    navController.navigate(R.id.action_nav_market_to_nav_create);
                 }
             });
         } else {

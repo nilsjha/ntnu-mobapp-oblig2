@@ -18,6 +18,7 @@ import no.nilsjarh.ntnu.fantj2.LoginRepository;
 import no.nilsjarh.ntnu.fantj2.Result;
 import no.nilsjarh.ntnu.fantj2.model.Attachment;
 import no.nilsjarh.ntnu.fantj2.model.Item;
+import no.nilsjarh.ntnu.fantj2.model.User;
 
 public class ItemViewModel extends ViewModel {
     private MutableLiveData<Item> activeItemLiveData;
@@ -98,23 +99,29 @@ public class ItemViewModel extends ViewModel {
      */
     public void purchaseActiveItem(Consumer<Integer> purchaseCallbackResult) {
         Item currentItem = this.activeItemLiveData.getValue();
-        setActiveItem(currentItem);
-        if (currentItem.getItemPurchase() == null) {
-            Log.d("ITEMMODEL-INFO","Item purchase for item " + currentItem.getId());
-            itemRepo.purchaseItem(currentItem.getId(), loginRepo.getToken(), purchase -> {
-                if (purchase != null) {
-                    loadActiveItem(currentItem.getId());
-                    // Exit 0: Server executed and accepted purchase
-                    purchaseCallbackResult.accept(0);
-                } else {
-                    // Exit 1: Server rejected purchase
-                    purchaseCallbackResult.accept(1);
-                }
-            });
+        if (!(verifyOwnerOfItem(currentItem, loginRepo.getUserId()))) {
+            setActiveItem(currentItem);
+            if (currentItem.getItemPurchase() == null) {
+                Log.d("ITEMMODEL-INFO","Item purchase for item " + currentItem.getId());
+                itemRepo.purchaseItem(currentItem.getId(), loginRepo.getToken(), purchase -> {
+                    if (purchase != null) {
+                        loadActiveItem(currentItem.getId());
+                        // Exit 0: Server executed and accepted purchase
+                        purchaseCallbackResult.accept(0);
+                    } else {
+                        // Exit 1: Server rejected purchase
+                        purchaseCallbackResult.accept(1);
+                    }
+                });
+            } else {
+                Log.d("ITEMMODEL-WARN","Item purchase abort, no item id present");
+                // Exit 2: Aborted purchase, due to no defined item in UI
+                purchaseCallbackResult.accept(2);
+            }
         } else {
-            Log.d("ITEMMODEL-WARN","Item purchase abort, no item id present");
-            // Exit 2: Aborted purchase, due to no defined item in UI
-            purchaseCallbackResult.accept(2);
+            Log.d("ITEMMODEL-WARN","Item purchase abort,seller tryin to get rich on own item");
+            purchaseCallbackResult.accept(10);
+
         }
     }
 
@@ -125,6 +132,15 @@ public class ItemViewModel extends ViewModel {
 
     public Boolean getLoggedInState() {
         return loginRepo.isLoggedIn();
+    }
+
+    public String getLoggedInUserId() {
+        if (getLoggedInState()) return loginRepo.getUserId();
+        return "";
+    }
+
+    private boolean verifyOwnerOfItem(Item i, String userId) {
+        return i.getItemSeller().getUserId().equals(userId) ? true : false;
     }
 
 }

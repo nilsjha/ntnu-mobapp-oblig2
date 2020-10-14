@@ -82,7 +82,7 @@ public class createItemFragment extends Fragment {
                 String descrString = description.getText().toString();
                 if (validateInput(titleString,priceString)) {
                     // VALID INPUT
-                    status.setText("Please hold on while creating the item....").setDuration(Snackbar.LENGTH_INDEFINITE).show();
+                    status.setText(R.string.createitem_message_waiting).setDuration(Snackbar.LENGTH_INDEFINITE).show();
 
                     InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
@@ -96,17 +96,17 @@ public class createItemFragment extends Fragment {
                                 itemViewModel.setDescriptionExistingItem(createOk.getId(),descrString,item ->{
                                     if (item != null) {
                                         status.setDuration(BaseTransientBottomBar.LENGTH_SHORT);
-                                        status.setTextColor(Color.GREEN).setText("Success").show();
+                                        status.setTextColor(Color.GREEN).setText(R.string.message_success).show();
 
                                     } else {
                                         status.setDuration(Snackbar.LENGTH_LONG);
-                                        status.setText("Created item " + createOk.getItemTitle() + ", but unable to set description").setTextColor(Color.YELLOW).show();
+                                        status.setText(getString(R.string.createitem_message_created_item) + createOk.getItemTitle() + getString(R.string.createitem_message_failed_to_add_descr)).setTextColor(Color.YELLOW).show();
                                     }
                                     navController.navigate(R.id.action_nav_create_to_nav_item);
                                 });
                             } else {
                                 status.setDuration(BaseTransientBottomBar.LENGTH_SHORT);
-                                status.setTextColor(Color.GREEN).setText("Success").show();
+                                status.setTextColor(Color.GREEN).setText(R.string.message_success).show();
 
                                 navController.navigate(R.id.action_nav_create_to_nav_item);
                             }
@@ -114,13 +114,13 @@ public class createItemFragment extends Fragment {
                             Exception error = ((Result.Error) createdItem).getError();
                             if (error == null) {
                                 // RETURNED NULL BECUASE SERVER RJECTED OUR REQUEST
-                                status.setTextColor(Color.RED).setText("Ensure that the item got a title and price").show();
+                                status.setTextColor(Color.RED).setText(R.string.createitem_invalid_form_message).show();
                             } else {
                                 // CLIENT SIDE ERROR
                                 if (error instanceof IOException) {
-                                    status.setTextColor(Color.YELLOW).setText("Network error, please chack the conntection").show();
+                                    status.setTextColor(Color.YELLOW).setText(R.string.createitem_network_error_message).show();
                                 } else {
-                                    status.setTextColor(Color.RED).setText("Unable to create item, please restart the app").show();
+                                    status.setTextColor(Color.RED).setText(R.string.createitem_crash_error_message).show();
                                 }
 
                             }
@@ -128,7 +128,7 @@ public class createItemFragment extends Fragment {
                     });
                 } else {
                     //INVALID INPUT
-                    status.setTextColor(Color.RED).setText("Title or price is invalid");
+                    status.setTextColor(Color.RED).setText(R.string.createitem_invalid_form_title_or_price);
                     status.setDuration(BaseTransientBottomBar.LENGTH_LONG).show();
                 }
 

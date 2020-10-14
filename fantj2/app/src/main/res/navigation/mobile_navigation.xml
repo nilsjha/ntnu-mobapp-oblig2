@@ -11,11 +11,14 @@
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_nav_home_to_nav_gallery"
+            android:id="@+id/action_nav_home_to_nav_market"
             app:destination="@id/nav_market" />
         <action
             android:id="@+id/action_nav_home_to_nav_login"
             app:destination="@id/nav_login" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_create"
+            app:destination="@id/nav_create" />
     </fragment>
 
     <fragment
@@ -27,7 +30,7 @@
             android:id="@+id/action_nav_market_to_nav_item"
             app:destination="@id/nav_item" />
         <action
-            android:id="@+id/action_nav_market_to_createItemFragment"
+            android:id="@+id/action_nav_market_to_nav_create"
             app:destination="@id/nav_create" />
     </fragment>
 
@@ -41,7 +44,11 @@
         android:id="@+id/nav_login"
         android:name="no.nilsjarh.ntnu.fantj2.ui.login.LoginFragment"
         android:label="@string/menu_login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_nav_login_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
     <fragment
         android:id="@+id/nav_create"
         android:name="no.nilsjarh.ntnu.fantj2.ui.item.createItemFragment"

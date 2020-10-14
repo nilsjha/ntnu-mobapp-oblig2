@@ -21,11 +21,15 @@ import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import no.nilsjarh.ntnu.fantj2.MarketplaceApi;
 import no.nilsjarh.ntnu.fantj2.R;
 import no.nilsjarh.ntnu.fantj2.RestService;
 import no.nilsjarh.ntnu.fantj2.model.Attachment;
 import no.nilsjarh.ntnu.fantj2.model.Item;
+import no.nilsjarh.ntnu.fantj2.model.Purchase;
 import no.nilsjarh.ntnu.fantj2.model.User;
 
 public class ItemFragment extends Fragment {
@@ -69,11 +73,14 @@ public class ItemFragment extends Fragment {
                     status.setDuration(BaseTransientBottomBar.LENGTH_LONG).show();
                     if (success.equals(0)) {
                         purchaseButton.setEnabled(false);
-                        status.setText(R.string.message_purchase_success).setTextColor(Color.GREEN);
+                        status.setText(R.string.message_success).setTextColor(Color.GREEN);
                     } else if (success.equals(1)){
                         status.setText(R.string.message_purchase_failed_invaliditem).setTextColor(Color.RED);
                     } else if (success.equals(2)) {
                         status.setText(R.string.message_purchase_failed_purchasedbefore).setTextColor(Color.RED);
+                    } else if (success.equals(10)) {
+                        status.setText(R.string.message_purchase_failed_already_seller).setTextColor(Color.RED);
+
                     }
                 });
             }
@@ -106,14 +113,48 @@ public class ItemFragment extends Fragment {
                 }
 
                 if (itemViewModel.getLoggedInState()) {
-                    if (i.getItemPurchase() == null) {
+                    Purchase currentPurchase = i.getItemPurchase();
+                    if (currentPurchase == null) {
                         purchaseContainer.setVisibility(View.VISIBLE);
+                        // SELLER DISPLAYS OWN ITEM
+                        if (i.getItemSeller().getUserId().equals(itemViewModel.getLoggedInUserId())) {
+                            purchaseContainer.setVisibility(View.VISIBLE);
+                            purchaseButton.setBackgroundColor(Color.BLACK);
+                            purchaseButton.setTextColor(Color.WHITE);
+                            purchaseButton.setEnabled(false);
+                            purchaseButton.setText(R.string.message_purchase_failed_already_seller);
+                        }
+                    } else {
+                        // BUYER DISPLAYS PURCHASED ITEM
+                        if (currentPurchase.getBuyerUser().getUserId().equals(itemViewModel.getLoggedInUserId())) {
+                            DateFormat timeDayFormat = new SimpleDateFormat("dd/MM/yyyy");
+                            String purchaseDate = timeDayFormat.format(currentPurchase.getPurchaseDate());
+
+                            purchaseContainer.setVisibility(View.VISIBLE);
+                            purchaseButton.setBackgroundColor(Color.BLACK);
+                            purchaseButton.setTextColor(Color.WHITE);
+                            purchaseButton.setEnabled(false);
+                            purchaseButton.setText(getString(R.string.item_purchased_on_message) + purchaseDate);
+                        } else if (i.getItemSeller().getUserId().equals(itemViewModel.getLoggedInUserId())) {
+                            DateFormat timeDayFormat = new SimpleDateFormat("dd/MM/yyyy");
+                            String purchaseDate = timeDayFormat.format(currentPurchase.getPurchaseDate());
+
+                            purchaseContainer.setVisibility(View.VISIBLE);
+                            purchaseButton.setBackgroundColor(Color.BLACK);
+                            purchaseButton.setTextColor(Color.WHITE);
+                            purchaseButton.setEnabled(false);
+                            purchaseButton.setText("Sold on " + purchaseDate);
+                            itemPrice.setText(getString(R.string.item_sold_to_prefix) + currentPurchase.getBuyerUser().getUserEmail());
+
+                        } else {
+                            itemPrice.setText(getString(R.string.sold_text));
+                        }
                     }
                 } else {
                     sellerMail.setText(R.string.seller_mail_hidden_placeholder);
-                  }
-                if (i.getItemPurchase() != null) {
-                itemPrice.setText(getString(R.string.sold_text));
+                    if (i.getItemPurchase() != null) {
+                        itemPrice.setText(getString(R.string.sold_text));
+                    }
                 }
             }
         });

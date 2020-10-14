@@ -57,8 +57,10 @@ public class LoginViewModel extends ViewModel {
        //         }
        //     }
        // });
+    }
 
-
+    public void logout() {
+        if (loginRepository.isLoggedIn()) loginRepository.logout();
     }
 
     public void loginDataChanged(String username, String password) {

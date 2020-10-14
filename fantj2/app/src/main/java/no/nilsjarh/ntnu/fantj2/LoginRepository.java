@@ -7,6 +7,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 import no.nilsjarh.ntnu.fantj2.model.LoggedInUser;
+import no.nilsjarh.ntnu.fantj2.model.User;
 
 /**
  * Class that requests authentication and user information from the remote data source and
@@ -45,6 +46,14 @@ public class LoginRepository {
 
     public String getToken() {
         return instance.user.getUserToken();
+    }
+
+    /**
+     * Return user id of current authenticated user
+     * @return String id of user
+     */
+    public String getUserId() {
+        return this.user.getUserId();
     }
     private void setLoggedInUser(LoggedInUser user) {
         this.user = user;
