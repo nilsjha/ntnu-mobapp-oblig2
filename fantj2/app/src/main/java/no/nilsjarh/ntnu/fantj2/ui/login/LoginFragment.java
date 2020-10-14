@@ -134,7 +134,7 @@ public class LoginFragment extends Fragment {
     }
 
     private void updateUiWithUser(LoggedInUserView model) {
-        String welcome = getString(R.string.welcome) + model.getDisplayName();
+        String welcome = getString(R.string.welcome);
         // TODO : initiate successful logged in experience
         if (getContext() != null && getContext().getApplicationContext() != null) {
             Toast.makeText(getContext().getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
@@ -144,7 +144,8 @@ public class LoginFragment extends Fragment {
             TextView navUnderText = main.findViewById(R.id.nav_user_mail);
             navMainText.setText("Welcome " + model.getDisplayName() + "!");
             navUnderText.setText(model.getDisplayMail());
-            navController.navigate(R.id.action_nav_login_to_nav_market);
+
+            navController.navigate(R.id.action_nav_login_to_nav_home);
         }
 
 

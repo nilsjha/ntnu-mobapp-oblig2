@@ -73,7 +73,7 @@ public class ItemFragment extends Fragment {
                     status.setDuration(BaseTransientBottomBar.LENGTH_LONG).show();
                     if (success.equals(0)) {
                         purchaseButton.setEnabled(false);
-                        status.setText(R.string.message_purchase_success).setTextColor(Color.GREEN);
+                        status.setText(R.string.message_success).setTextColor(Color.GREEN);
                     } else if (success.equals(1)){
                         status.setText(R.string.message_purchase_failed_invaliditem).setTextColor(Color.RED);
                     } else if (success.equals(2)) {
@@ -122,7 +122,7 @@ public class ItemFragment extends Fragment {
                             purchaseButton.setBackgroundColor(Color.BLACK);
                             purchaseButton.setTextColor(Color.WHITE);
                             purchaseButton.setEnabled(false);
-                            purchaseButton.setText("Cannot purchase own item");
+                            purchaseButton.setText(R.string.message_purchase_failed_already_seller);
                         }
                     } else {
                         // BUYER DISPLAYS PURCHASED ITEM
@@ -134,7 +134,7 @@ public class ItemFragment extends Fragment {
                             purchaseButton.setBackgroundColor(Color.BLACK);
                             purchaseButton.setTextColor(Color.WHITE);
                             purchaseButton.setEnabled(false);
-                            purchaseButton.setText("Purchased on " + purchaseDate);
+                            purchaseButton.setText(getString(R.string.item_purchased_on_message) + purchaseDate);
                         } else if (i.getItemSeller().getUserId().equals(itemViewModel.getLoggedInUserId())) {
                             DateFormat timeDayFormat = new SimpleDateFormat("dd/MM/yyyy");
                             String purchaseDate = timeDayFormat.format(currentPurchase.getPurchaseDate());
@@ -144,7 +144,7 @@ public class ItemFragment extends Fragment {
                             purchaseButton.setTextColor(Color.WHITE);
                             purchaseButton.setEnabled(false);
                             purchaseButton.setText("Sold on " + purchaseDate);
-                            itemPrice.setText("Sold to " + currentPurchase.getBuyerUser().getUserEmail());
+                            itemPrice.setText(getString(R.string.item_sold_to_prefix) + currentPurchase.getBuyerUser().getUserEmail());
 
                         } else {
                             itemPrice.setText(getString(R.string.sold_text));

@@ -16,9 +16,5 @@
             android:id="@+id/nav_market"
             android:icon="@drawable/ic_menu_market"
             android:title="@string/menu_market" />
-        <item
-            android:id="@+id/nav_login"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Login" />
     </group>
 </menu>

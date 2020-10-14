@@ -24,7 +24,7 @@ public class MarketViewModel extends ViewModel {
 
     public MarketViewModel(ItemRepository itemRepo, LoginRepository loginRepo) {
         text = new MutableLiveData<String>();
-        text.setValue("This app got parallax effects!");
+        text.setValue("");
         this.itemRepo = itemRepo;
         this.loginRepo = loginRepo;
     }
