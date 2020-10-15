@@ -85,7 +85,9 @@ public class createItemFragment extends Fragment {
                     status.setText(R.string.createitem_message_waiting).setDuration(Snackbar.LENGTH_INDEFINITE).show();
 
                     InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                    inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                    if (inputManager != null ) {
+                        inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                    }
 
                     itemViewModel.createNewItem(title.getText().toString(), new BigDecimal(price.getText().toString()), createdItem -> {
                         status.setDuration(BaseTransientBottomBar.LENGTH_LONG);
