@@ -58,7 +58,7 @@
     <string name="message_purchase_failed_purchasedbefore">Beklagar, annonsen er allerede kjøpt</string>
     <string name="message_purchase_failed_already_seller">Som selger kan du ikkje kjøpe eigne annonser</string>
 
-    <string name="devel_byline_text"><![CDATA[Fant Marked versjon 1.1.1]]></string>
+    <string name="devel_byline_text"><![CDATA[Fant Marked versjon 1.1.2]]></string>
     <string name="application_brand_name">Fant Marked</string>
     <string name="application_brand_slogan">Selg det som er kjekt å ha</string>
     <string name="main_button_create_item">Legg ut ei ny annonse</string>
